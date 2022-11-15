@@ -1,0 +1,23 @@
+<main class="form-signin">
+    <form [formGroup]="formLogin" (ngSubmit)="login()">
+      <img class="mb-4" src="./../../../assets//img/tr.png" alt="">
+      <h1 class="h3 mb-3 fw-normal text-center">Inicia Sesión</h1>
+  
+      <div class="form-floating">
+        <input formControlName="username" type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Usuario</label>
+      </div>
+      <div class="form-floating">
+        <input  formControlName="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <label for="floatingPassword">Contraseña</label>
+      </div>
+      
+      <div class="checkbox mb-3  text-center">
+        <label>
+            <a routerLink="/register">¿No tienes usuario?  <b >Registrate aquí</b>  </a>
+      </label>
+      </div>
+      <button class="w-100 btn btn-lg btn-success" type="submit">Iniciar Sesión</button>
+      <p class="mt-5 mb-3 text-muted text-center">&copy; Turismo Real - 2022</p>
+    </form>
+  </main>
