@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
 import { Departamento } from '../interfaces/departamento.interface';
 
 @Component({
@@ -12,9 +13,20 @@ export class CardDepartamentoComponent implements OnInit {
   @Input()
   departamento: Departamento ;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  goPaso2( departamento: Departamento){
+
+    const navigationExtras: NavigationExtras = {
+      state: {
+        departamento
+      }
+    };
+    this.router.navigate(['paso2', departamento.idDepartamento], navigationExtras);
+
   }
 
 }

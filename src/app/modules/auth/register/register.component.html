@@ -9,8 +9,9 @@
                   alt="Sample photo" class="img-fluid"
                   style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
               </div>
-              <form [formGroup]="formRegister" (ngSubmit)="registrarUsuario()" >
               <div class="col-xl-6">
+                <form style="all: none !important;" [formGroup]="formRegister" (ngSubmit)="registrarUsuario()" >
+
                 <div class="card-body p-md-5 text-black">
                   <h3 class="mb-5 text-uppercase text-center"> <b> <i> Registro Nuevo Usuario</i></b></h3>
                     
@@ -67,8 +68,6 @@
                       <span [hidden]="this.formRegister.invalid && this.formRegister.get('telefono')?.untouched">
                         <small  *ngIf="this.formRegister.get('telefono')?.errors?.['required']"> <p class="text-danger"> <i> (El telefono no puede quedar vacío)</i></p> </small>
                         <small  *ngIf="this.formRegister.get('telefono')?.errors?.['pattern']"> <p class="text-danger"> <i> (El telefono debe tener 8 números)</i></p> </small>
-
-
                       </span>
                     </div>
                   </div>
@@ -111,8 +110,9 @@
                   </div>
 
                 </div>
+              </form>
+
               </div>
-            </form>
             </div>
           </div>
         </div>

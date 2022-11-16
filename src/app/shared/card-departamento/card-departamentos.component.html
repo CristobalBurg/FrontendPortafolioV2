@@ -1,15 +1,16 @@
 <div class="col">
     <div class="card h-100 border-success">
 
-      <img src="./../../../assets/img/depa2.jpg" class="card-img-top img-fluid" alt="...">
+      <img *ngIf="departamento?.foto" src="http://localhost:8080/api/departamentos/upload/img/{{departamento.foto}}"  class="img-thumbnail card-img-top img-fluid">
+      <img *ngIf="!departamento?.foto" src="http://localhost:8080/api/departamentos/upload/img/noImage.jpg"  class="img-thumbnail card-img-top img-fluid">
       <div class="card-img-overlay h-25">
           <div class="row">
               <div class="col">
-                  <div class="card-title text-start"><span class="badge bg-primary rounded-pill">La Serena</span></div>
+                  <div class="card-title text-start"><span class="badge bg-primary rounded-pill">{{departamento.comuna.nombre}}</span></div>
 
               </div>
               <div class="col">
-                  <div class="card-title text-end"><span class="badge bg-success rounded-pill">3D / 2B</span></div>
+                  <div class="card-title text-end"><span class="badge bg-success rounded-pill">{{departamento.ctdHabitaciones}} H / {{departamento.ctdBanos}} B</span></div>
 
               </div>
           </div>
@@ -17,11 +18,12 @@
       </div>
 
       <div class="card-body">
-          <h5 class="card-title">Los Aromos 20302 - 76 mt2</h5>
-          <p class="card-text">Descripcion Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi fugit vitae nihil, dolorum voluptas est </p>
+          <h5 class="card-title">{{departamento.direccion}} - {{departamento.tamano}} mt2</h5>
+          <p class="card-text">{{departamento.politicasCondiciones}} </p>
           <p class="card-text text-dark "><b></b> </p>
-          <p class="card-text text-success "><b>Valor Arriendo Dia: $25.000</b> </p>
-          <button class="btn  btn-outline-success w-100">Ver Fechas Disponibles</button>
+          <p class="card-text text-success "><b>Valor Arriendo Dia: {{departamento.valorArriendoDia | currency }}</b> </p>
+          <button class="btn  btn-outline-success w-100" 
+          (click)="goPaso2(departamento)">Ver Fechas Disponibles</button>
         </div>
 
     </div>

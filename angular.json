@@ -4,6 +4,9 @@
   "newProjectRoot": "projects",
   "projects": {
     "FrontPortafolioV2": {
+      "i18n":{
+        "sourceLocale":"es-CL"
+      },
       "projectType": "application",
       "schematics": {},
       "root": "",

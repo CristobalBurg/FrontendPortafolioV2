@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map, Observable } from 'rxjs';
+import { Departamento } from 'src/app/shared/interfaces/departamento.interface';
+import { Reserva } from 'src/app/shared/interfaces/reserva.interface';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { DepartamentoService } from 'src/app/shared/services/departamento.service';
+import { ReservaService } from 'src/app/shared/services/reserva.service';
 
 @Component({
   selector: 'app-paso2',
@@ -7,9 +14,44 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Paso2Component implements OnInit {
 
-  constructor() { }
+  departamento : Departamento;
+  reserva = {} as Reserva
+
+
+  constructor(
+    public router: Router, 
+    public activatedRoute: ActivatedRoute, 
+    private dS: DepartamentoService , 
+    private aS:AuthService,
+    private rS:ReservaService
+    ) {
+     this.departamento = this.router.getCurrentNavigation()?.extras.state?.departamento;
+     if (!this.departamento){ 
+      this.activatedRoute.params.subscribe(params => {
+        let id = params['id'];
+        this.dS.obtenerDepartamentoById(id).subscribe( (x:Departamento) => {
+          this.departamento = x;
+        })
+        });
+     }
+   }
 
   ngOnInit(): void {
+  }
+
+  getSelectedDate( rangoFechas ){
+    if (!rangoFechas){
+      this.rS.removeLocalReserva();
+      return;
+    } 
+    this.reserva.departamento = this.departamento;
+    this.reserva.fechaLlegada = rangoFechas.inicio;
+    this.reserva.fechaEntrega = rangoFechas.fin;
+    this.reserva.usuario = this.aS.getUser()
+    this.rS.setLocalReserva( this.reserva )
+
+
+    
   }
 
 }

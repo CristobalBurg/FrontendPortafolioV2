@@ -16,6 +16,9 @@ import { LoginComponent } from './modules/auth/login/login.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { authInterceptorProviders } from './shared/interceptors/auth.interceptor';
 import { RegisterComponent } from './modules/auth/register/register.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbdDatepickerRange } from './shared/datepicker-range/datepicker-range.component';
+
 
 @NgModule({
   declarations: [
@@ -28,19 +31,22 @@ import { RegisterComponent } from './modules/auth/register/register.component';
     Paso2Component,
     Paso3Component,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    NgbdDatepickerRange
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule, 
+    HttpClientModule,
+    NgbModule
   ],
   providers: [
     DepartamentoService,
     authInterceptorProviders
   ],
-  bootstrap: [AppComponent]
+  exports:[NgbdDatepickerRange],
+  bootstrap: [AppComponent,]
 })
 export class AppModule { }

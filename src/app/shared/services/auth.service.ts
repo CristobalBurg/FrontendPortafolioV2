@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { LoginData, Usuario } from '../interfaces/auth.interface';
 
@@ -7,6 +7,8 @@ import { LoginData, Usuario } from '../interfaces/auth.interface';
   providedIn: 'root'
 })
 export class AuthService {
+
+  authChanged: EventEmitter<any> = new EventEmitter();
 
   constructor(public http: HttpClient) { }
 
@@ -31,6 +33,7 @@ export class AuthService {
   public logout () {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    this.authChanged.emit(false);
     return true;
   }
 
@@ -40,6 +43,7 @@ export class AuthService {
 
   public setUser( usuario: any ){
     localStorage.setItem('user', JSON.stringify(usuario))
+    this.authChanged.emit(this.getUser());
   }
   
   public getUser(){

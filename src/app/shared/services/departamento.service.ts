@@ -26,6 +26,12 @@ export class DepartamentoService {
 
   }
 
+  obtenerDepartamentoById(id: number): Observable<Departamento>{
+    let segment = '/' + id;
+    return this.httpClient.get<Departamento>(this.url + segment)
+
+  }
+
   obtenerComunas(): Observable<Comuna[]>{
     let segment = '/listarComunas';
     return this.httpClient.get<Comuna[]>(this.url + segment)

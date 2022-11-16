@@ -1,21 +1,8 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-4 my-2">
-            <app-card-departamentos></app-card-departamentos>
+        <div class="col-md-4 my-2" *ngFor="let item of listadoDepartamentos">
+            <app-card-departamentos [departamento]="item"></app-card-departamentos>
         </div>
-        <div class="col-md-4 my-2">
-            <app-card-departamentos></app-card-departamentos>
-        </div>
-        <div class="col-md-4 my-2">
-            <app-card-departamentos></app-card-departamentos>
-        </div>
-        <div class="col-md-4 my-2">
-            <app-card-departamentos></app-card-departamentos>
-        </div>
-        <div class="col-md-4 my-2">
-            <app-card-departamentos></app-card-departamentos>
-        </div>
-
     </div>
 </div>
 
