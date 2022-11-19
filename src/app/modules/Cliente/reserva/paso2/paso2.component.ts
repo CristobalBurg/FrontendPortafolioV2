@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
-import { Departamento } from 'src/app/shared/interfaces/departamento.interface';
-import { Reserva } from 'src/app/shared/interfaces/reserva.interface';
+import { Departamento, Reserva } from 'src/app/shared/interfaces/reserva.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { DepartamentoService } from 'src/app/shared/services/departamento.service';
 import { ReservaService } from 'src/app/shared/services/reserva.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-paso2',
@@ -37,6 +37,7 @@ export class Paso2Component implements OnInit {
    }
 
   ngOnInit(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   getSelectedDate( rangoFechas ){
@@ -47,11 +48,18 @@ export class Paso2Component implements OnInit {
     this.reserva.departamento = this.departamento;
     this.reserva.fechaLlegada = rangoFechas.inicio;
     this.reserva.fechaEntrega = rangoFechas.fin;
-    this.reserva.usuario = this.aS.getUser()
+    this.reserva.usuario = this.aS.getUser();
+    this.reserva.reservaPagos = [];
     this.rS.setLocalReserva( this.reserva )
 
+  }
 
-    
+  irPaso3(){
+    if(!this.rS.getLocalReserva()){
+      Swal.fire("Ups..!","Debes seleccionar un rango de fecha válido para el arriendo","info")
+      return;
+    }
+    this.router.navigate(["/paso3"])
   }
 
 }

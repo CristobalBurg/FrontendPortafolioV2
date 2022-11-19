@@ -6,7 +6,7 @@ import { CustomValidatorsService } from 'src/app/shared/services/custom-validato
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
-
+// Typescript ===== JAVASCRIPT 
 
 
 @Component({

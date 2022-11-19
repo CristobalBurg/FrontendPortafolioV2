@@ -60,8 +60,7 @@ export class NgbdDatepickerRange {
 	constructor(private calendar: NgbCalendar) {
     this.w = window.innerWidth;
     this.minDate = this.getMinDate();
-		this.fromDate = calendar.getToday();
-		this.toDate = calendar.getNext(calendar.getToday(), 'd', 5);
+
 	}
 
 @HostListener('window:resize', ['$event'])

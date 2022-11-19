@@ -1,0 +1,153 @@
+
+
+<section style="background-color: #eee;">
+    <ngx-spinner  type="ball-scale-multiple"></ngx-spinner>
+
+    <div class="container py-5">
+      <div class="row">
+        <div class="col">
+            <div class="alert alert-secondary text-center"  style="font-family: Courier New;">
+                <h3><b><i>Confirmación de tu reserva</i></b> </h3>
+            </div>
+
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-lg-3">
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <img *ngIf="reserva.departamento?.foto" src="http://localhost:8080/api/departamentos/upload/img/{{reserva.departamento.foto}}"  class="img-thumbnail card-img-top img-fluid">
+                    <img *ngIf="!reserva.departamento?.foto" src="http://localhost:8080/api/departamentos/upload/img/noImage.jpg"  class="img-thumbnail card-img-top img-fluid">
+                  <h5 class="my-3">{{reserva.departamento.direccion}}</h5>
+                  <p class="text-muted mb-1">{{reserva.departamento.comuna.nombre}}</p>
+    
+                  <h6>
+                    {{reserva.departamento.politicasCondiciones}}
+                  </h6>
+                  <div class="d-flex justify-content-center mb-2">
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Reserva a nombre:</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{reserva.usuario.nombre}} {{reserva.usuario.apellido}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Fecha</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">Desde  <b>{{reserva.fechaLlegada}}</b> hasta <b>{{reserva.fechaEntrega}}</b> </p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Acompañantes</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{reserva.ctdAcomanantes}}</p>
+                </div>
+              </div>
+              <hr>
+
+              <div class="row" *ngIf="hasTransportista">
+                <div class="col-sm-12">
+                    <div class="alert alert-primary text-center">
+                        <p class="mb-0"> Has seleccionado el <b>servicio extra de transporte</b>  , Cuando confirmes tu reserva , te llegará un correo con la información del transportista asignado para trasladarte de ida y de vuelta.</p>
+                    </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12" >
+                <div class="alert alert-secondary text-center">
+                    <div class="row">
+                        <div class="col-md-12" *ngIf="reserva.reservaServicioExtra.length == 0 ">
+                            <div class="alert alert-secondary text-center w-100">
+                                <h5>No hay servicios extras seleccionados</h5>
+                            </div>
+                        </div>
+
+                            <h5>Servicios Extras</h5>     
+                            <div  class="col-md-4" *ngFor="let item of reserva.reservaServicioExtra">
+                                <app-card-servicio-extra
+                                [servicioExtra]="item.servicioExtra" 
+                                [isConfirmacion]="true"
+                                [selectedServiciosExtra]="selectedServicioExtras"
+                                ></app-card-servicio-extra>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span style="font-size:10px">Si deseas agregar o cambiar algún servicio extra , haz click <a routerLink="/paso3">aquí</a></span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card mb-4 mb-lg-0">
+                <div class="card-body p-0">
+                    <ul class="list-group ">
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                          <div>
+                            <h6 class="my-0">Total Arriendo</h6>
+                            <small class="text-muted">{{totales.totalDias}} Dias</small>
+                          </div>
+                          <span class="text-muted">{{totales.totalSinServiciosExtra | currency:'CLP'}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                          <div>
+                            <h6 class="my-0">Total Servicios Extra</h6>
+                            <small class="text-muted">{{reserva.reservaServicioExtra.length}} Servicios </small>
+                          </div>
+                          <span class="text-muted">{{totales.totalServiciosExtra | currency:'CLP'}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                          <div>
+                            <h6 class="my-0">Total General</h6>
+                            <small class="text-muted">100% </small>
+                          </div>
+                          <span class="text-muted">{{totales.totalGeneral | currency:'CLP'}}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                            <div>
+                              <h6 class="my-0">Anticipo</h6>
+                              <small class="text-muted">50%% </small>
+                            </div>
+                            <span class="text-muted">{{totales.totalAnticipo | currency:'CLP'}}</span>
+                          </li>
+                        <li class="list-group-item d-flex justify-content-between  lh-sm bg-secondary text-light py-3">
+                          <span class=""><b>TOTAL A PAGAR</b> </span>
+                          <strong>{{totales.totalAnticipo | currency:'CLP'}}</strong>
+                        </li>
+                      </ul>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="text-center my-2">
+                    <img height="50" class="webpay-plus-logo" alt="Webpay Plus" src="../../../assets/img/webpay.png">
+                </div>
+                <button class="btn btn-success w-100 my-3 p-4" (click)="simularPago()">Proceder al Pago</button>
+            </div>
+        </div>
+      </div>
+    </div>
+    
+  </section>
+

@@ -1,31 +1,107 @@
-<body style="background-color:#bbecf0;">   
-    <main>    
-      <div class="container col-xxl-8 px-4 py-5">
-        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-          <div class="col-10 col-sm-8 col-lg-6">
-            <img src="../../../assets/img/playa.jpg" class="rounded img-fluid" alt="playa"  loading="lazy">
-          </div>
-          <div class="col-lg-6">
-            <h1 class="display-5 fw-bold lh-1 mb-3">Vacacionar en el mejor lugar</h1>
-            <p class="font-weight-normal">Prepara tu viaje soñado sin complicarte y en un par de minutos.</p>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-              <button type="button" class="btn btn-primary btn-lg px-4 me-md-2" routerLink="/paso1">Reserva Ya</button>
-            </div>
-          </div>
-        </div>
-      </div> 
-      <div class="container col-xxl-8 px-4 py-5">
-        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-          <div class="col-lg-6">
-            <h1 class="display-5 fw-bold lh-1 mb-3">Clientes Felices</h1>
-            <p class="font-weight-normal">Las opiniones de nuestros clientes nos hacen crecer cada día más.</p>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-            </div>
-          </div>
-          <div class="col-10 col-sm-8 col-lg-6">
-            <img src="../../../assets/img/reseña.png" class="rounded img-fluid" alt="playa"  loading="lazy">
+
+<main>
+
+  <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="../../../assets/img/depa14.jpg"  class="rounded img-fluid" alt="playa"  loading="lazy" preserveAspectRatio="xMidYMid slice" focusable="false">
+
+        <div *ngIf="w > 700" class="container">
+          <div class="carousel-caption text-start"> 
+            <h1 class="text-light "  routerLink="/paso1">Busca tu dempartamento ahora!</h1>
+            <p >Hermosos departamentos en las mejores zonas del pais</p>
           </div>
         </div>
       </div>
-    </main> 
-</body>
+      <div class="carousel-item">
+        <img src="../../../assets/img/depa12.jpg"  class="rounded img-fluid" alt="playa"  loading="lazy" preserveAspectRatio="xMidYMid slice" focusable="false">
+        <div *ngIf="w > 700" class="container">
+          <div  class="carousel-caption">
+            <h1 class="text-light text-border" >Departamentos en las mejores playas de Chile</h1>
+            <p><a class="btn btn-lg btn-primary" routerLink="/login">Iniciar Sesion</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="../../../assets/img/depa16.jpg"  class="rounded img-fluid" alt="playa"  loading="lazy" preserveAspectRatio="xMidYMid slice" focusable="false">
+
+        <div *ngIf="w > 700" class="container">
+          <div  class="carousel-caption text-end">
+            <h1 class=" text-border text-light">Servicios Extras pensados en tu comodidad</h1>
+            <p class="text-border">Desayunos , tours , transporte y mucho más !</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+
+  <main>
+
+  
+    <div class="container marketing">
+  
+
+  
+
+  
+      <div class="row featurette mt-5">
+        <div class="col-md-7">
+          <h2 class="featurette-heading fw-normal lh-1">Turismo Real</h2>
+          <p class="lead">Turismo Real es una empresa con mas de 25 años en el rubro turistico , dando siempre las mejores alternativas de arreindo de departamentos a nuestros clientes , en los mejores sectores turisticos de Chile . Nuestra dedicación y experiencia nos avalan como una de las mas grandes compañias del rubro turistico. En alianza con distintas compañias de transporte y turismo que nos ayudan a brindar la mejor experiencia a nuestros clientes.</p>
+          <button class="btn btn-primary mb-3" *ngIf="currentUser" routerLink="/paso1">Reserva Ahora!</button>
+          <button class="btn btn-primary mb-3"  *ngIf="!currentUser" routerLink="/login">Reserva Ahora!</button>
+
+        </div>
+        <div class="col-md-5">
+          <img src="../../../assets/img/playa.jpg"  class="rounded img-fluid" alt="playa"  loading="lazy" preserveAspectRatio="xMidYMid slice" focusable="false">
+
+  
+        </div>
+      </div>
+  
+      <hr class="featurette-divider">
+      <br>
+
+      <div class="row text-center">
+        <div class="col-lg-4">
+
+          <img src="../../../assets/img/puerto.jpg"  class="bd-placeholder-img rounded-circle mb-3 border-primary" width="140" height="140" alt="playa"  loading="lazy" preserveAspectRatio="xMidYMid slice" focusable="false">
+  
+          <h2 ><b><i> Paisajes</i></b></h2>
+          <p>Conoce las maravillas del Sur de Chile, arrendando departamentos en las mejores zonas de Pucón / Villarrica</p>
+        </div>
+        <div class="col-lg-4">
+          <img src="../../../assets/img/transporte.png"  class="bd-placeholder-img rounded-circle mb-3 border-primary" width="140" height="140" alt="playa"  loading  ="lazy" preserveAspectRatio="xMidYMid slice" focusable="false">
+  
+          <h2 > <b><i>Transporte</i></b> </h2>
+          <p>Te tenemos cubierto si es que no tienes como moverte , contrata nuestro servicio de transfer ida y vuelta</p>
+        </div>
+        <div class="col-lg-4">
+          <img src="../../../assets/img/tour.jpg"  class="bd-placeholder-img rounded-circle mb-3 border-primary" width="140" height="140" alt="playa"  loading="lazy" preserveAspectRatio="xMidYMid slice" focusable="false">
+  
+          <h2 ><b><i> Tours</i></b></h2>
+          <p>Realiza los mejores tours por la localidad de donde arriendas , al mejor precio y con garantia de satisfacción , nosotros nos encargamos de todo</p>
+        </div>
+      </div><!-- /.row -->
+  
+  
+    </div>
+  
+
+  </main>
+
+  

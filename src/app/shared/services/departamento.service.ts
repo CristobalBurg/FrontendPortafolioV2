@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http'
 import { catchError, map, Observable , throwError } from 'rxjs';
-import { Comuna, Departamento } from '../interfaces/departamento.interface';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { Comuna, Departamento } from '../interfaces/reserva.interface';
 
 
 @Injectable({

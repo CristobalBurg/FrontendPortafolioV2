@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { Departamento } from '../interfaces/departamento.interface';
+import { Departamento } from '../interfaces/reserva.interface';
 
 @Component({
   selector: 'app-card-departamentos',
@@ -11,7 +11,7 @@ export class CardDepartamentoComponent implements OnInit {
 
 
   @Input()
-  departamento: Departamento ;
+  departamento: Departamento ;  
 
   constructor(private router: Router) { }
 

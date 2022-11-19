@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +20,9 @@ import { authInterceptorProviders } from './shared/interceptors/auth.interceptor
 import { RegisterComponent } from './modules/auth/register/register.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdDatepickerRange } from './shared/datepicker-range/datepicker-range.component';
+import { CardServicioExtraComponent } from './shared/card-servicio-extra/card-servicio-extra.component';
+import { Paso4Component } from './modules/reserva/paso4/paso4.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -32,7 +37,9 @@ import { NgbdDatepickerRange } from './shared/datepicker-range/datepicker-range.
     Paso3Component,
     LoginComponent,
     RegisterComponent,
-    NgbdDatepickerRange
+    NgbdDatepickerRange,
+    CardServicioExtraComponent,
+    Paso4Component
   ],
   imports: [
     BrowserModule,
@@ -40,7 +47,10 @@ import { NgbdDatepickerRange } from './shared/datepicker-range/datepicker-range.
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule,
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
+
   ],
   providers: [
     DepartamentoService,

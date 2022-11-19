@@ -1,1 +1,33 @@
-<p>paso3 works!</p>
+<form [formGroup]="formAcompanantes" (ngSubmit)="irPaso4()">
+
+<div class="container">
+    <div class="row" style="font-family: Courier New;">
+        <div class="col-12">
+            <h2 class="my-2" >
+                <i><b>Ingresa numero de acompañantes</b>  <small>(Max 5)</small></i> 
+            </h2>
+                <input type="number" formControlName="acompanantes" max="5" class="text-line" />
+        </div>
+        <div class="col-12 mt-5">
+            <h2 class="my-2"><i><b>¿Deseas agregar algun servicio extra a tu reserva ?</b></i> </h2>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-md-4" *ngFor="let item of listadoServiciosExtra; let i = index">
+            <app-card-servicio-extra
+             [servicioExtra]="item" 
+             [selectedServiciosExtra]="selectedServicioExtras"
+             (addEmitter)="addServicioExtra($event)"
+             (removeEmitter)="removeServicioExtra($event)"
+             ></app-card-servicio-extra>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <button type="submit" class="btn btn-primary w-50">Siguiente</button>
+        </div>
+    </div>
+</div>
+</form>
+

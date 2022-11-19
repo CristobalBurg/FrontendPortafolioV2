@@ -26,8 +26,10 @@
               "src/assets"
             ],
 "styles": [
-  "node_modules/bootstrap/dist/css/bootstrap.min.css",
-  "src/styles.css"
+  "bootswatch/dist/spacelab/bootstrap.min.css",
+    "src/styles.css",
+    "node_modules/ngx-spinner/animations/ball-scale-multiple.css" 
+
 ],
 "scripts": [
   "node_modules/jquery/dist/jquery.min.js",

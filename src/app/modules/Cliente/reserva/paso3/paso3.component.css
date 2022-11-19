@@ -1,0 +1,20 @@
+h1 {text-align: center;}
+p {text-align: center;}
+div {text-align: center;}
+.text-line {
+    background-color: transparent;
+    color: black;
+    outline: none;
+    outline-style: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid black 3px;
+    max-width: 6%;
+}
+
+input[type="number"]
+{
+    font-size:40px;
+    font-weight: bold;
+}

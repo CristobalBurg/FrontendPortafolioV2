@@ -1,8 +1,8 @@
 <div class="col">
-    <div class="card h-100 border-success">
+    <div class="card h-100 border-primary">
 
-      <img *ngIf="departamento?.foto" src="http://localhost:8080/api/departamentos/upload/img/{{departamento.foto}}"  class="img-thumbnail card-img-top img-fluid">
-      <img *ngIf="!departamento?.foto" src="http://localhost:8080/api/departamentos/upload/img/noImage.jpg"  class="img-thumbnail card-img-top img-fluid">
+      <img *ngIf="departamento?.foto" src="http://localhost:8080/api/departamentos/upload/img/{{departamento.foto}}"  class="img-fluid rounded-start card-img-top">
+      <img *ngIf="!departamento?.foto" src="http://localhost:8080/api/departamentos/upload/img/noImage.jpg"   class="img-fluid rounded-start card-img-top">
       <div class="card-img-overlay h-25">
           <div class="row">
               <div class="col">
@@ -21,8 +21,8 @@
           <h5 class="card-title">{{departamento.direccion}} - {{departamento.tamano}} mt2</h5>
           <p class="card-text">{{departamento.politicasCondiciones}} </p>
           <p class="card-text text-dark "><b></b> </p>
-          <p class="card-text text-success "><b>Valor Arriendo Dia: {{departamento.valorArriendoDia | currency }}</b> </p>
-          <button class="btn  btn-outline-success w-100" 
+          <p class="card-text text-success "><b>Valor Arriendo Dia: {{departamento.valorArriendoDia | currency:'CLP' }}</b> </p>
+          <button class="btn  btn-primary w-100" 
           (click)="goPaso2(departamento)">Ver Fechas Disponibles</button>
         </div>
 

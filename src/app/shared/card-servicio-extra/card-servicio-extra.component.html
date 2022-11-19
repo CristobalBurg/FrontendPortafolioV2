@@ -1,0 +1,30 @@
+
+
+    <div class="card-deck">
+        <div class="card my-4">
+            <img *ngIf="servicioExtra?.foto"
+            src="http://localhost:8080/api/departamentos/upload/img/{{servicioExtra.foto}}"
+            class="img-thumbnail card-img-top  img-fluid">
+        <img *ngIf="!servicioExtra?.foto" src="http://localhost:8080/api/departamentos/upload/img/noImage.jpg"
+            class="img-thumbnail card-img-top  img-fluid">       
+        <div class="card-body">
+            <h6 class="card-title" *ngIf="isConfirmacion">{{servicioExtra.nombre}}</h6>
+            <h5 class="card-title" *ngIf="!isConfirmacion">{{servicioExtra.nombre}}</h5>
+            <p class="card-text" *ngIf="!isConfirmacion">{{servicioExtra.descripcion}}</p>
+          </div>
+          <div class="card-footer" >
+            <div class="row">
+                <div class="col-12">
+                    <small class="text-muted">Valor  :  <b class="text-success"> {{servicioExtra.valor | currency:'CLP'}}</b> {{servicioExtra.tipoPrecio == 'PP' ? 'Por Persona': 'Pago único'}}</small>
+
+                </div>
+                <div class="col-12 mt-2" *ngIf="!isConfirmacion">
+                    <button *ngIf="!checkServicioExtra()" class="btn btn-outline-primary w-100" (click)="addServicioExtra( servicioExtra )">Contratar</button>
+                    <button *ngIf="checkServicioExtra()" class="btn btn-primary w-100" (click)="removeServicioExtra( servicioExtra )">Quitar</button>
+
+                </div>
+            </div>
+
+          </div>
+        </div>
+    </div>
