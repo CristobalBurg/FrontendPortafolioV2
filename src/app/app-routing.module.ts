@@ -6,7 +6,12 @@ import { LoginComponent } from './modules/auth/login/login.component';
 import { RegisterComponent } from './modules/auth/register/register.component';
 import { Paso2Component } from './modules/Cliente/reserva/paso2/paso2.component';
 import { Paso3Component } from './modules/Cliente/reserva/paso3/paso3.component';
-import { Paso4Component } from './modules/reserva/paso4/paso4.component';
+import { Paso4Component } from './modules/Cliente/reserva/paso4/paso4.component';
+import { AdminHomeComponent } from './modules/admin/admin-home/admin-home.component';
+import { ReservasComponent } from './modules/admin/reservas/reservas.component';
+import { AdminDepartamentosComponent } from './modules/admin/admin-departamentos/admin-departamentos.component';
+import { InventarioComponent } from './modules/admin/admin-departamentos/inventario/inventario.component';
+import { MantencionesComponent } from './modules/admin/admin-departamentos/mantenciones/mantenciones.component';
 
 const routes: Routes = [
   {path: "", redirectTo: 'home', pathMatch:'full'},
@@ -17,7 +22,18 @@ const routes: Routes = [
   {path: 'paso2/:id' , component: Paso2Component},
   {path: 'paso3' , component: Paso3Component},
   {path: 'paso4' , component: Paso4Component},
+  {path: 'admin-home' , component: AdminHomeComponent},
+  {path: 'admin-reservas' , component: ReservasComponent},
+  {path: 'admin-departamentos', component: AdminDepartamentosComponent},
+  {path: 'inventario/:id', component: InventarioComponent},
+  {path: 'mantenciones/:id', component: MantencionesComponent},
 
+
+
+
+
+
+  
 
 ];
 

@@ -12,18 +12,20 @@ import { AuthService } from '../services/auth.service';
 export class NavbarComponent implements OnInit  {
 
   authedUser: Usuario
+  isAdmin: boolean = false;
 
   constructor(private aS: AuthService, private router:Router) {
     this.aS.authChanged
     .subscribe((user?: any) => {
       this.authedUser = user;
-      console.log( "user from navbar " , user)
+      this.isAdmin = this.authedUser.isAdmin === 1 ? true : false;
     });
   }
    
 
   ngOnInit(): void {
     this.authedUser = this.aS.getUser();
+    this.isAdmin = this.authedUser.isAdmin === 1 ? true : false;
   }
 
   logout(){

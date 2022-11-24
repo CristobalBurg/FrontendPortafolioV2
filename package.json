@@ -23,6 +23,7 @@
     "bootstrap": "^5.2.2",
     "bootswatch": "^5.2.2",
     "dotenv": "^16.0.3",
+    "file-saver": "^2.0.5",
     "jquery": "^3.6.1",
     "moment": "^2.29.4",
     "ngx-spinner": "^14.0.0",

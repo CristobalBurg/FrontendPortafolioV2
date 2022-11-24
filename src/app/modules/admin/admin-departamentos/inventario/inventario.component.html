@@ -1,0 +1,92 @@
+<div class="container mt-3" *ngIf="departamento">
+    <div class="alert alert-secondary text-center">
+        <h3><i> <b> Inventario de Productos :  <small>{{departamento.direccion}}</small></b> </i> </h3>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <app-card-departamentos [departamento]="departamento" [verFechas]="false"></app-card-departamentos>
+
+        </div>
+        <div class="col-md-8">
+            <form>
+                <div class="my-3 row">
+                    <div class="col">
+                        <input id="table-filtering-search" placeholder="Ingrese producto" class="form-control" type="text" [formControl]="filter" />
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-warning w-100" (click)="open(content)">
+                            Agregar/Editar Producto
+                        </button>
+                    </div>
+                </div>
+            </form> 
+            <table class="table table-striped text-center table-bordered">
+                <thead class="bg-primary text-light">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Operación</th>
+        
+                    
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of listadoProductos$ | async; index as i">
+                        <th scope="row">{{item.idInventarioProducto}}</th>
+                        <td>
+                            <ngb-highlight [result]="item.producto.nombre" [term]="filter.value"></ngb-highlight>
+                        </td>
+                        <td><ngb-highlight [result]="item.producto.valor | number" [term]="filter.value"></ngb-highlight></td>
+                        <td><ngb-highlight [result]="item.cantidad | number" [term]="filter.value"></ngb-highlight></td>
+                        <td>
+                            <button class="btn btn-danger" (click)="borrarInventarioProducto(item.idInventarioProducto || 0)"><i class="fas fa-times"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+
+  <!--///////////////////////////777 //////////////////////////////////777-->
+
+  <ng-template #content let-modal>
+    <form [formGroup]="formAddInventario" (ngSubmit)="agregarProductoInventario()">
+
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-productos">Agregar al Inventario</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+            <div class="form-group mb-3">
+                <label for="producto">Producto</label>
+                <select class="form-select" id="producto" formControlName="producto" >
+                  <option [value]="item.idProducto" *ngFor="let item of maestroProductos" >
+                    {{item.nombre}} - {{item.valor | currency:'CLP'}}
+                </option>
+                </select>
+              </div>
+              <div class="form-group mb-3">
+                <label for="cantidad">Cantidad</label>
+                <input type="number" class="form-control" id="cantidad" placeholder="Cantidad"  formControlName="cantidad">
+              </div>
+	</div>
+	<div class="modal-footer">
+        <div class="alert alert-secondary p-0 p-2">
+            <p> <small>Si no encuentras el producto que quieres agregar , debes crearlo en el <a routerLink="/mantenedores">mantenedor de productos</a> </small></p>
+
+        </div>
+		<button type="submit" class="btn btn-primary w-100">Agregar al inventario</button>
+	</div>
+</form>
+
+</ng-template>
+
+
+
+

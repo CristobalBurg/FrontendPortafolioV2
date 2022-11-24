@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import moment from 'moment';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-import { Reserva, ServicioExtra } from '../interfaces/reserva.interface';
+import { CheckIn, Checkout, Reserva, ServicioExtra } from '../interfaces/reserva.interface';
 import { DesgloseTotal } from '../interfaces/ventas.interfaces';
 
 @Injectable({
@@ -13,6 +13,10 @@ import { DesgloseTotal } from '../interfaces/ventas.interfaces';
 export class ReservaService {
 
   url : string = environment.BACKEND_URL + '/api/reserva';
+  urlCheckin : string = environment.BACKEND_URL + '/api/checkin';
+  urlCheckout : string = environment.BACKEND_URL + '/api/checkout';
+
+
 
 
   constructor(private httpClient:HttpClient) { }
@@ -78,6 +82,47 @@ export class ReservaService {
     let segment = '/';
     return this.httpClient.post<Reserva>(this.url + segment , nuevaReserva)
   }
+
+  
+  getReservas(): Observable<Reserva[]>{
+    let segment = '/listarReservas';
+    return this.httpClient.get<Reserva[]>(this.url + segment)
+  }
+
+  crearCheckin( checkIn: CheckIn): Observable<CheckIn[]>{
+    return this.httpClient.post<CheckIn[]>(this.urlCheckin , checkIn )
+  }
+
+  getCheckins(): Observable<CheckIn[]>{
+    let segment = '/listarCheckins';
+    return this.httpClient.get<CheckIn[]>(this.urlCheckin + segment)
+  }
+
+
+
+  imprimirCheckin(idCheckin : number):Observable<HttpResponse<Blob>>{
+    let segment = '/download/' + idCheckin;
+    let headers = new HttpHeaders();
+    headers = headers.set('Accept', 'application/pdf');
+    return this.httpClient.get<Blob>(this.urlCheckin + segment , { headers , observe: 'response', responseType: 'blob' as 'json'})
+  }
+
+  imprimirCheckout(idCheckout : number):Observable<HttpResponse<Blob>>{
+    let segment = '/download/' + idCheckout;
+    let headers = new HttpHeaders();
+    headers = headers.set('Accept', 'application/pdf');
+    return this.httpClient.get<Blob>(this.urlCheckout + segment , { headers , observe: 'response', responseType: 'blob' as 'json'})
+  }
+
+  crearCheckout( checkout: Checkout){
+    return this.httpClient.post<CheckIn[]>(this.urlCheckout , checkout)
+  }
+
+  getCheckouts(): Observable<Checkout[]>{
+    let segment = '/listarCheckouts';
+    return this.httpClient.get<Checkout[]>(this.urlCheckout + segment)
+  }
+
 
 
   calcularTotal( reserva: Reserva ): DesgloseTotal {

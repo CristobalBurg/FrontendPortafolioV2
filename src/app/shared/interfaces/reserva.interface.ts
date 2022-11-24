@@ -103,3 +103,23 @@ export interface Usuario {
 export interface Authority {
     authority?: string;
 }
+
+export interface CheckIn {
+    idCheckIn?: number;
+    reserva : Reserva;
+    firmado : boolean;
+}
+
+export interface Checkout {
+    idCheckout?: number;
+    checkin: CheckIn;
+    multa: Multa,
+    firmado: boolean;
+
+}
+
+export interface Multa {
+    idMulta?: number;
+    descripcion: string;
+    valor: number;
+}

@@ -22,7 +22,7 @@
           <p class="card-text">{{departamento.politicasCondiciones}} </p>
           <p class="card-text text-dark "><b></b> </p>
           <p class="card-text text-success "><b>Valor Arriendo Dia: {{departamento.valorArriendoDia | currency:'CLP' }}</b> </p>
-          <button class="btn  btn-primary w-100" 
+          <button class="btn  btn-primary w-100" *ngIf="verFechas"
           (click)="goPaso2(departamento)">Ver Fechas Disponibles</button>
         </div>
 

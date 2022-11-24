@@ -81,7 +81,7 @@
                             </div>
                         </div>
 
-                            <h5>Servicios Extras</h5>     
+                            <h5 *ngIf="reserva.reservaServicioExtra.length > 0 "> Servicios Extras</h5>     
                             <div  class="col-md-4" *ngFor="let item of reserva.reservaServicioExtra">
                                 <app-card-servicio-extra
                                 [servicioExtra]="item.servicioExtra" 

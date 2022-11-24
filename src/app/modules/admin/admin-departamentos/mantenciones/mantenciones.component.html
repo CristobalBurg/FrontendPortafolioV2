@@ -1,0 +1,87 @@
+<div class="container mt-4" *ngIf="departamento">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-secondary text-center">
+                <h4><i><b>Agendamiento de mantenciones: DEPTO</b> </i></h4>
+            </div>
+        </div>
+        <div class="col-md-4">
+                <app-card-departamentos [departamento]="departamento" [verFechas]="false"></app-card-departamentos>
+        </div>
+        <div class="col-md-8">
+            <form>
+                <div class="my-3 row">
+                    <div class="col-sm-6">
+                        <input id="table-filtering-search" placeholder="Ingrese producto" class="form-control" type="text" [formControl]="filter" />
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-primary w-100" (click)="open(content)">
+                            Agendar Mantención
+                        </button>
+                    </div>
+                </div>
+            </form> 
+            <table class="table table-striped text-center table-bordered">
+                <thead class="bg-primary text-light">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Mantención</th>
+                        <th scope="col">Fecha Inicio</th>
+                        <th scope="col">Fecha Fin</th>
+                        <th scope="col">Valor</th>
+        
+                    
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of listadoMantenciones$ | async; index as i">
+                        <th scope="row">{{item.idDepartamentoMantencion}}</th>
+                        <td>
+                            <ngb-highlight [result]="item.mantencion.descripcion" [term]="filter.value"></ngb-highlight>
+                        </td>
+                        <td><ngb-highlight [result]="item.fechaInicio " [term]="filter.value"></ngb-highlight></td>
+                        <td><ngb-highlight [result]="item.fechaFin" [term]="filter.value"></ngb-highlight></td>
+                        <td><ngb-highlight [result]="item.mantencion.valor | number" [term]="filter.value"></ngb-highlight></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!----------------------------------------------------------------------------------------------->
+
+<ng-template #content let-modal>
+    <form [formGroup]="formMantenciones" (ngSubmit)="agendarMantencion()">
+
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-mantenciones">Agendar Mantención</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+            <div class="form-group mb-3">
+                <label for="mantenecion">Mantención</label>
+                <select class="form-select" id="mantencion" formControlName="mantencion" >
+                  <option [value]="item.idMantencion" *ngFor="let item of maestroMantenciones" >
+                    {{item.descripcion}} - {{item.valor | currency:'CLP'}} / Dia
+                </option>
+                </select>
+              </div>
+              <div class="text-center">
+            <ngbd-datepicker-range 
+                (selectedDateEmitter)="getSelectedDate($event)" 
+                [disabledDates]="parsedDisabledDates"
+                [isMantencion]="true">
+            </ngbd-datepicker-range>
+
+              </div>
+
+    
+
+	</div>
+	<div class="modal-footer">
+
+		<button type="submit" class="btn btn-primary w-100">Agendar Mantencion</button>
+	</div>
+</form>
+
+</ng-template>

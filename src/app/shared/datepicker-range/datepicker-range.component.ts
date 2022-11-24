@@ -1,8 +1,9 @@
-import { Component, HostListener } from '@angular/core';
-import { NgbDate, NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Component, HostListener, Input } from '@angular/core';
+import { NgbDate, NgbCalendar, NgbDateStruct, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Output, EventEmitter } from '@angular/core';
 import moment from 'moment';
 import Swal from 'sweetalert2';
+import { UtilsService } from '../services/utils.service';
 
 @Component({
 	selector: 'ngbd-datepicker-range',
@@ -38,35 +39,34 @@ import Swal from 'sweetalert2';
 })
 export class NgbdDatepickerRange {
 	hoveredDate: NgbDate | null = null;
-  minDate: NgbDateStruct; 
-  w: number;
-	fromDate: NgbDate ;
+	minDate: NgbDateStruct;
+	w: number;
+	fromDate: NgbDate;
 	toDate: NgbDate | null = null;
-  date: {year: number, month: number, day:number};
-  @Output() selectedDateEmitter = new EventEmitter<any>();
-  
+	date: { year: number, month: number, day: number };
+	@Output()
+	selectedDateEmitter = new EventEmitter<any>();
+	@Input()
+	isMantencion: boolean = false;
 
-  isDisabled = (date: NgbDateStruct)=> {
-    return this.disabledDates.find(x => NgbDate.from(x)?.equals(date))? true: false;
-  }
 
-  disabledDates: NgbDateStruct[] = [ 
-    {year: 2022, month:11, day:20},
-    {year: 2022, month:11, day:21},
-    {year: 2022, month:11, day:22},
-  ]
-  parsedDisabledDates: string[] = []
+	isDisabled = (date: NgbDateStruct) => {
+		return this.disabledDates.find(x => NgbDate.from(x)?.equals(date)) ? true : false;
+	}
+	@Input()
+	disabledDates: NgbDateStruct[];
 
-	constructor(private calendar: NgbCalendar) {
-    this.w = window.innerWidth;
-    this.minDate = this.getMinDate();
 
+
+	constructor(private calendar: NgbCalendar, private uS: UtilsService) {
+		this.w = window.innerWidth;
+		this.minDate = this.getMinDate();
 	}
 
-@HostListener('window:resize', ['$event'])
-onResize() {
-  this.w = window.innerWidth;
-}
+	@HostListener('window:resize', ['$event'])
+	onResize() {
+		this.w = window.innerWidth;
+	}
 
 	onDateSelection(date: NgbDate) {
 		if (!this.fromDate && !this.toDate) {
@@ -77,38 +77,31 @@ onResize() {
 			this.toDate = null;
 			this.fromDate = date;
 		}
-    let parsed = this.disabledDates.map( (x => NgbDate.from(x))) as NgbDate[];
-    let momentArray = parsed.map( (x) => this.parseNgbDateToMoment(x))
-    let inicio = this.parseNgbDateToMoment(this.fromDate);
-    let fin = this.parseNgbDateToMoment(this.toDate as NgbDate);
-    let rangoFechas = { inicio,fin }
-    let checks:boolean[] = []
+		let parsed = this.disabledDates.map((x => NgbDate.from(x))) as NgbDate[];
+		let momentArray = parsed.map((x) => this.uS.parseNgbDateToMoment(x))
+		let inicio = this.uS.parseNgbDateToMoment(this.fromDate);
+		let fin = this.uS.parseNgbDateToMoment(this.toDate as NgbDate);
+		let rangoFechas = { inicio, fin }
+		let checks: boolean[] = []
 
-    momentArray.forEach( (disabledDate) => {
-      let isEnabled = rangoFechas.fin && !( moment(disabledDate).isBetween(moment(inicio),moment(fin)))
-      if(isEnabled){
-        checks.push(true)
-      }
-    })
+		momentArray.forEach((disabledDate) => {
+			let isEnabled = rangoFechas.fin && !(moment(disabledDate).isBetween(moment(inicio), moment(fin)))
+			if (isEnabled) {
+				checks.push(true)
+			}
+		})
 
-    if (checks.length == momentArray.length){
-      this.emitSelectedDate(rangoFechas)
-    } else {
-      this.emitSelectedDate(null)
-    }
+		if (checks.length == momentArray.length) {
+			this.emitSelectedDate(rangoFechas)
+		} else {
+			this.emitSelectedDate(null)
+		}
 	}
 
 
-
-  parseNgbDateToMoment(ngbDate: NgbDate){
-    if(!ngbDate) return;
-    let date = ngbDate.year + "-" + ngbDate.month + '-' + ngbDate.day;
-    return moment(date).format('yyyy-MM-DD');
-  }
-
-  emitSelectedDate(selectedDate: any){
-    this.selectedDateEmitter.emit(selectedDate)
-  }
+	emitSelectedDate(selectedDate: any) {
+		this.selectedDateEmitter.emit(selectedDate)
+	}
 
 	isHovered(date: NgbDate) {
 		return (
@@ -129,7 +122,7 @@ onResize() {
 		);
 	}
 
-  getMinDate(){
-    return  { day: moment().date(), month: moment().month() + 1, year: moment().year()};
-    }
+	getMinDate() {
+		return { day: moment().date(), month: moment().month() + 1, year: moment().year() };
+	}
 }

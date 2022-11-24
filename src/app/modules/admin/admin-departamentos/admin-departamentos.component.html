@@ -1,0 +1,55 @@
+<div class="container mt-3">
+    <form>
+        <div class="mb-3 row">
+            <div class="col-xs-3 col-sm-auto">
+                <input id="table-filtering-search" placeholder="Ingrese Direccion o comuna" class="form-control" type="text" [formControl]="filter" />
+            </div>
+        </div>
+    </form>
+    
+    <table class="table table-striped text-center table-bordered">
+        <thead class="bg-primary text-light">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Comuna</th>
+                <th scope="col">Hab.</th>
+                <th scope="col">Baños.</th>
+                <th scope="col">Valor Dia</th>
+                <th scope="col">Monto Inventario</th>
+                <th scope="col">Operaciones</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of departamentos$ | async; index as i">
+                <th scope="row">{{item.idDepartamento}}</th>
+                <td>
+                    <ngb-highlight [result]="item.direccion" [term]="filter.value"></ngb-highlight>
+                </td>
+                <td><ngb-highlight [result]="item.comuna.nombre " [term]="filter.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="item.ctdHabitaciones | number" [term]="filter.value"></ngb-highlight></td>
+                <td><ngb-highlight [result]="item.ctdBanos | number" [term]="filter.value"></ngb-highlight></td>
+                <td>{{item.valorArriendoDia | currency:'CLP'}}</td>
+                <td>{{5000000 | currency:'CLP'}}</td>
+
+                <td>
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-primary w-100" (click)="inventario(item)">
+                                Inventario
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary w-100"  (click)="mantenciones(item)">
+                                Mantenciones
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+

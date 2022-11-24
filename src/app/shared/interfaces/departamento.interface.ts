@@ -9,7 +9,7 @@ export interface Departamento {
     foto:                     string;
     comuna:                   Comuna;
     inventarioProductos:      InventarioProducto[];
-    departamentoMantenciones: any[];
+    departamentoMantenciones: DepartamentoMantenciones[];
 }
 
 export interface Comuna {
@@ -28,4 +28,17 @@ export interface Producto {
     idProducto: number;
     valor:      number;
     nombre:     string;
+}
+
+export interface DepartamentoMantenciones {
+    idDepartamentoMantencion: number;
+    mantencion:               Mantencion;
+    fechaInicio:              string;
+    fechaFin:                 string;
+}
+
+export interface Mantencion {
+    idMantencion: number;
+    descripcion:  string;
+    valor:        number;
 }

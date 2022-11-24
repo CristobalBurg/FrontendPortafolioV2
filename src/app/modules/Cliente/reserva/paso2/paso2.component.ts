@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbDate, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import moment from 'moment';
 import { map, Observable } from 'rxjs';
 import { Departamento, Reserva } from 'src/app/shared/interfaces/reserva.interface';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { DepartamentoService } from 'src/app/shared/services/departamento.service';
 import { ReservaService } from 'src/app/shared/services/reserva.service';
+import { UtilsService } from 'src/app/shared/services/utils.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,6 +19,10 @@ export class Paso2Component implements OnInit {
 
   departamento : Departamento;
   reserva = {} as Reserva
+  listadoReservas: Reserva[];
+  dias;
+  disabledDates:string[] = []
+  parsedDisabledDates:NgbDateStruct[];
 
 
   constructor(
@@ -23,7 +30,9 @@ export class Paso2Component implements OnInit {
     public activatedRoute: ActivatedRoute, 
     private dS: DepartamentoService , 
     private aS:AuthService,
-    private rS:ReservaService
+    private rS:ReservaService,
+    private ngbPF: NgbDateParserFormatter,
+    private uS:UtilsService
     ) {
      this.departamento = this.router.getCurrentNavigation()?.extras.state?.departamento;
      if (!this.departamento){ 
@@ -38,6 +47,18 @@ export class Paso2Component implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    this.rS.getReservas().subscribe( (x) => {
+      this.listadoReservas = x.filter( (x) => {
+        return x.departamento.idDepartamento === this.departamento.idDepartamento
+      });
+      this.listadoReservas.forEach( (rs) => {
+        let listadofechas = this.uS.enumerateDaysBetweenDates(rs.fechaLlegada, rs.fechaEntrega);
+        this.disabledDates = this.disabledDates.concat(listadofechas);
+      })
+      this.parsedDisabledDates = this.disabledDates.map( (md) => {
+        return this.ngbPF.parse(md) as NgbDateStruct
+      })
+    })
   }
 
   getSelectedDate( rangoFechas ){
@@ -61,5 +82,7 @@ export class Paso2Component implements OnInit {
     }
     this.router.navigate(["/paso3"])
   }
+
+
 
 }

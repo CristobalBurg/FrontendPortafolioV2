@@ -21,8 +21,13 @@ import { RegisterComponent } from './modules/auth/register/register.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdDatepickerRange } from './shared/datepicker-range/datepicker-range.component';
 import { CardServicioExtraComponent } from './shared/card-servicio-extra/card-servicio-extra.component';
-import { Paso4Component } from './modules/reserva/paso4/paso4.component';
+import { Paso4Component } from './modules/Cliente/reserva/paso4/paso4.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { AdminHomeComponent } from './modules/admin/admin-home/admin-home.component';
+import { ReservasComponent } from './modules/admin/reservas/reservas.component';
+import { AdminDepartamentosComponent } from './modules/admin/admin-departamentos/admin-departamentos.component';
+import { InventarioComponent } from './modules/admin/admin-departamentos/inventario/inventario.component';
+import { MantencionesComponent } from './modules/admin/admin-departamentos/mantenciones/mantenciones.component';
 
 
 @NgModule({
@@ -39,7 +44,12 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     RegisterComponent,
     NgbdDatepickerRange,
     CardServicioExtraComponent,
-    Paso4Component
+    Paso4Component,
+    AdminHomeComponent,
+    ReservasComponent,
+    AdminDepartamentosComponent,
+    InventarioComponent,
+    MantencionesComponent
   ],
   imports: [
     BrowserModule,

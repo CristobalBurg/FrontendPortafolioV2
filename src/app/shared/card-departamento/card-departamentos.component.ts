@@ -12,6 +12,8 @@ export class CardDepartamentoComponent implements OnInit {
 
   @Input()
   departamento: Departamento ;  
+  @Input()
+  verFechas: boolean = true;
 
   constructor(private router: Router) { }
 

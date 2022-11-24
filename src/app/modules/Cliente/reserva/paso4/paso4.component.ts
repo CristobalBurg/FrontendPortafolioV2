@@ -6,6 +6,7 @@ import { DesgloseTotal } from 'src/app/shared/interfaces/ventas.interfaces';
 import Swal from 'sweetalert2';
 import { tap , finalize} from 'rxjs';
 import { NgxSpinnerService } from "ngx-spinner";
+import { Router } from '@angular/router';
 
 
 
@@ -22,7 +23,7 @@ export class Paso4Component implements OnInit {
   hasTransportista: boolean;
   totales: DesgloseTotal;
 
-  constructor(private rS:ReservaService, private spinner: NgxSpinnerService) { }
+  constructor(private rS:ReservaService, private spinner: NgxSpinnerService, private router:Router) { }
 
   ngOnInit(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -54,7 +55,9 @@ export class Paso4Component implements OnInit {
     this.rS.saveReserva( this.reserva ).subscribe({
       next: () => {   
         this.spinner.hide()
-        Swal.fire("Reserva Completada!", "El pago fue procesado correctamente (simulación) , hemos enviado el comprobante de la reserva a " + this.reserva.usuario.email , "success")},
+        Swal.fire("Reserva Completada!", "El pago fue procesado correctamente (simulación) , hemos enviado el comprobante de la reserva a " + this.reserva.usuario.email , "success")
+        this.router.navigate(["/home"]);
+      },
       error: (err) => {
         this.spinner.hide()
         Swal.fire("Error",err.error.mensaje || "Error al crear la reserva","error")
