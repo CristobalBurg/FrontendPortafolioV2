@@ -27,6 +27,10 @@ export class MantencionesComponent implements OnInit {
   formMantenciones: FormGroup;
   disabledDates:string[] = []
   parsedDisabledDates:NgbDateStruct[];
+
+  disabledDatesMantenciones:string[] = []
+  parsedDisabledDatesMantenciones:NgbDateStruct[];
+
   listadoReservas: Reserva[];
   
 
@@ -58,6 +62,10 @@ export class MantencionesComponent implements OnInit {
       });
     } else {
       this.listadoMantenciones = this.departamento.departamentoMantenciones;
+      this.disabledDatesMantenciones = this.listadoMantenciones.map( (dm) => {
+        return this.uS.enumerateDaysBetweenDates(dm.fechaInicio , dm.fechaFin)[0]
+      })
+      console.log(this.disabledDatesMantenciones)
       this.listadoMantenciones$ = this.filter.valueChanges.pipe(
         startWith(''),
         map((text) => this.search(text)));
@@ -87,6 +95,7 @@ export class MantencionesComponent implements OnInit {
   getDepartamentoById(id){
     this.dS.obtenerDepartamentoById(id).subscribe((x: Departamento) => {
       this.departamento = x;
+      console.log(this.departamento.departamentoMantenciones)
       this.listadoMantenciones = x.departamentoMantenciones;
       this.listadoMantenciones$ = this.filter.valueChanges.pipe(
         startWith(''),
@@ -116,17 +125,28 @@ export class MantencionesComponent implements OnInit {
     newDepartamentoMantencion.fechaInicio = this.formMantenciones.get('fechaInicio')?.value;
     newDepartamentoMantencion.fechaFin = this.formMantenciones.get('fechaFin')?.value;
     newDepartamentoMantencion.mantencion = this.maestroMantenciones.find( (x) => x.idMantencion === Number(this.formMantenciones.get('mantencion')?.value)) as Mantencion;
-
-
-    this.departamento.departamentoMantenciones.push(newDepartamentoMantencion)
-
-    this.dS.editarDepartamento( this.departamento , Number(this.departamento.idDepartamento)).subscribe({
-      next: (n) => {
-        this.getDepartamentoById(this.departamento.idDepartamento);
-        Swal.fire("Inventario Acutalizado","se ha agendado correctamente la mantención" , "success");
-        this.modalService.dismissAll()
+    this.departamento.departamentoMantenciones.push(newDepartamentoMantencion);
+    Swal.fire({
+      title: 'Seguro que deseas agendar esta mantención?',
+      text: "Se realizará la simulación e pago y no se podra modificar la programacion de esta mantención",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.dS.editarDepartamento( this.departamento , Number(this.departamento.idDepartamento)).subscribe({
+          next: (n) => {
+            this.getDepartamentoById(this.departamento.idDepartamento);
+            Swal.fire("Mantención agendada","se ha agendado correctamente la mantención" , "success");
+            this.modalService.dismissAll()
+          }
+        })
       }
     })
+
+
   } 
 
   open(content) {
