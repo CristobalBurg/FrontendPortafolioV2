@@ -12,6 +12,8 @@ import { ReservasComponent } from './modules/admin/reservas/reservas.component';
 import { AdminDepartamentosComponent } from './modules/admin/admin-departamentos/admin-departamentos.component';
 import { InventarioComponent } from './modules/admin/admin-departamentos/inventario/inventario.component';
 import { MantencionesComponent } from './modules/admin/admin-departamentos/mantenciones/mantenciones.component';
+import { AdminMantenedoresComponent } from './modules/admin/admin-mantenedores/admin-mantenedores.component';
+import { MantenedorDepartamentosComponent } from './modules/admin/mantenedor-departamentos/mantenedor-departamentos.component';
 
 const routes: Routes = [
   {path: "", redirectTo: 'home', pathMatch:'full'},
@@ -27,13 +29,8 @@ const routes: Routes = [
   {path: 'admin-departamentos', component: AdminDepartamentosComponent},
   {path: 'inventario/:id', component: InventarioComponent},
   {path: 'mantenciones/:id', component: MantencionesComponent},
-
-
-
-
-
-
-  
+  {path: 'mantenedores', component: AdminMantenedoresComponent},
+  {path: 'mantenedor-departamento', component: MantenedorDepartamentosComponent},
 
 ];
 

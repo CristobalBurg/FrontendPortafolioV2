@@ -15,7 +15,9 @@ export class CardDepartamentoComponent implements OnInit {
   @Input()
   verFechas: boolean = true;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+
+   }
 
   ngOnInit(): void {
   }

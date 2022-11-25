@@ -1,0 +1,148 @@
+<div class="container mt-3">
+    <div class="alert alert-secondary text-center">
+        <h3> <b><i> Mantenedor Departamentos</i></b></h3>
+    </div>
+</div>
+<div class="container mt-3">
+    <form>
+        <div class="mb-3 row">
+            <div class="col-md-6 ">
+                <input id="table-filtering-search" placeholder="Ingrese Direccion o comuna" class="form-control" type="text"  [formControl]="filter" />
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-success w-100"  (click)="open(content)">
+                    Agregar Departamento
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="table-responsive">
+        <table class="table table-striped text-center table-bordered table-responsive">
+            <thead class="bg-primary text-light">
+                <tr>
+                    <th *ngIf="w > 425"></th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Dirección</th>
+                    <th  *ngIf="w > 425" scope="col">Comuna</th>
+                    <th  *ngIf="w > 425" scope="col">Hab.</th>
+                    <th *ngIf="w > 425"  scope="col">Baños.</th>
+                    <th *ngIf="w > 425"  scope="col">M2</th>
+    
+                    <th *ngIf="w > 425"  scope="col">Valor Dia</th>
+                    <th scope="col">Operaciones</th>
+                
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of departamentos$ | async; index as i">
+                    <td *ngIf="w > 425" >
+                        <img *ngIf="item?.foto" src="http://localhost:8080/api/departamentos/upload/img/{{item.foto}}"  class="img-thumbnail img-fluid" width="75" height="60">
+                        <img *ngIf="!item?.foto" src="http://localhost:8080/api/departamentos/upload/img/noImage.jpg"  class="img-thumbnail img-fluid">
+                    </td>
+                    <th scope="row">{{item.idDepartamento}}</th>
+                    <td>
+                        <ngb-highlight [result]="item.direccion" [term]="filter.value"></ngb-highlight>
+                    </td>
+                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.comuna.nombre " [term]="filter.value"></ngb-highlight></td>
+                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.ctdHabitaciones | number" [term]="filter.value"></ngb-highlight></td>
+                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.ctdBanos | number" [term]="filter.value"></ngb-highlight></td>
+                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.tamano | number" [term]="filter.value"></ngb-highlight></td>
+    
+                    <td *ngIf="w > 425">{{item.valorArriendoDia | currency:'CLP'}}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-warning w-100" (click)="editarDepartamento(item , content)" >
+                                    Editar
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-danger w-100 "  [ngClass]="w < 425 ? 'my-1' : ''" (click)="eliminarDepartamento(item.idDepartamento || 0)">
+                                    Eliminar
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-info w-100"  (click)="eliminarDepartamento(item.idDepartamento || 0)">
+                                    Subir Foto
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+<!-- ///////////////////////////////MODAL/////////////////////////////-->
+
+<ng-template #content let-modal>
+    <form [formGroup]="formDepartamentos" (ngSubmit)="agregarDepartamento()">
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-mantenedor-departamento">{{isEdit ? 'Editar departamento' : 'Agregar Departamento'}}</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Dirección</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="direccion" formControlName="direccion">
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Ctd Habitaciones</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="ctdHabitaciones">
+                      </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Ctd Baños</label>
+                        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="ctdBanos">
+                      </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Valor Arriendo Dia</label>
+                        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="valorArriendoDia">
+                      </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tamaño (mts2)</label>
+                        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="tamano">
+                      </div>
+                </div>
+              </div>
+
+
+
+
+
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Comuna</label>
+                <select class="form-select" id="comuna" formControlName="comuna" >
+                    <option [value]="item.idComuna" *ngFor="let item of comunas" >
+                      {{item.nombre}}
+                  </option>
+                  </select>
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Descripción</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"  formControlName="politicasCondiciones"></textarea>
+                <small  *ngIf="this.formDepartamentos.get('politicasCondiciones')?.errors?.['required']"> <p class="text-danger"> <i>(La descripcion no puede estar vacia)</i></p> </small>
+
+              </div>
+            
+	</div>
+	<div class="modal-footer">
+		<button type="submit" class="btn btn-success w-100" (click)="modal.close('Save click')">{{isEdit ? 'Editar' : 'Agregar'}}</button>
+	</div>
+</form>
+
+</ng-template>
+
+

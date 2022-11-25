@@ -28,6 +28,8 @@ import { ReservasComponent } from './modules/admin/reservas/reservas.component';
 import { AdminDepartamentosComponent } from './modules/admin/admin-departamentos/admin-departamentos.component';
 import { InventarioComponent } from './modules/admin/admin-departamentos/inventario/inventario.component';
 import { MantencionesComponent } from './modules/admin/admin-departamentos/mantenciones/mantenciones.component';
+import { AdminMantenedoresComponent } from './modules/admin/admin-mantenedores/admin-mantenedores.component';
+import { MantenedorDepartamentosComponent } from './modules/admin/mantenedor-departamentos/mantenedor-departamentos.component';
 
 
 @NgModule({
@@ -49,7 +51,9 @@ import { MantencionesComponent } from './modules/admin/admin-departamentos/mante
     ReservasComponent,
     AdminDepartamentosComponent,
     InventarioComponent,
-    MantencionesComponent
+    MantencionesComponent,
+    AdminMantenedoresComponent,
+    MantenedorDepartamentosComponent
   ],
   imports: [
     BrowserModule,

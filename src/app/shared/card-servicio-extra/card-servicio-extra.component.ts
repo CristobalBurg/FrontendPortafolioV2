@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ServicioExtra } from '../interfaces/reserva.interface';
 
+
+
 @Component({
   selector: 'app-card-servicio-extra',
   templateUrl: './card-servicio-extra.component.html',
@@ -10,7 +12,6 @@ export class CardServicioExtraComponent implements OnInit {
 
   @Output() addEmitter = new EventEmitter<any>();
   @Output() removeEmitter = new EventEmitter<any>();
-
 
   @Input()
   servicioExtra:ServicioExtra;
