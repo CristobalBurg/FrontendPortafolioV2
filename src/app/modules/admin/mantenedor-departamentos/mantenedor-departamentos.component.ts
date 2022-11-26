@@ -22,6 +22,7 @@ export class MantenedorDepartamentosComponent implements OnInit {
   departamentoSeleccioando: Departamento;
   filter = new FormControl('', { nonNullable: true });
   w: number = window.innerWidth
+  fotoSeleccionada: File;
 
 
   constructor(private dS:DepartamentoService , private modalService: NgbModal , private fb: FormBuilder) {
@@ -46,10 +47,13 @@ export class MantenedorDepartamentosComponent implements OnInit {
   }
 
 	open(content) {
+    this.isEdit = false;
 		this.modalService.open(content, { ariaLabelledBy: 'modal-mantenedor-departamento' })
 	}
 
   agregarDepartamento(){
+
+    console.log(this.formDepartamentos.value)
     
 
     if(this.formDepartamentos.invalid){
@@ -70,6 +74,7 @@ export class MantenedorDepartamentosComponent implements OnInit {
 
     if (this.isEdit){
       nuevoDepartamento.idDepartamento = this.departamentoSeleccioando.idDepartamento;
+      nuevoDepartamento.foto = this.departamentoSeleccioando.foto
       this.dS.editarDepartamento(nuevoDepartamento , this.departamentoSeleccioando.idDepartamento || 0 ).subscribe({
         next: (res) =>{
           this.getDepartamentos();
@@ -115,7 +120,6 @@ export class MantenedorDepartamentosComponent implements OnInit {
     this.formDepartamentos.get('tamano')?.setValue( departamento.tamano);
     this.formDepartamentos.get('politicasCondiciones')?.setValue( departamento.politicasCondiciones);
     this.formDepartamentos.get('valorArriendoDia')?.setValue( departamento.valorArriendoDia);
-    this.isEdit = false
 
   }
 
@@ -154,6 +158,23 @@ export class MantenedorDepartamentosComponent implements OnInit {
 	onResize() {
 		this.w = window.innerWidth;
 	}
+
+  seleccionarFoto(event , id){
+    this.fotoSeleccionada = event.target.files[0];
+    if (this.fotoSeleccionada.type.indexOf('image') < 0 ){
+      Swal.fire('Error Upload', 'Seleccione un archivo de imagen', 'error')
+      return;
+    }
+    if (!this.fotoSeleccionada){
+      Swal.fire('Error','Debe seleccionar una foto','error')
+    } else {
+      this.dS.subirFoto( this.fotoSeleccionada , id).subscribe( (x) => {
+        console.log(x)
+        this.getDepartamentos();
+      })
+    }
+
+  }
 
 
 

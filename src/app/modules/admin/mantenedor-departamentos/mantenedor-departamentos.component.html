@@ -37,7 +37,7 @@
                 <tr *ngFor="let item of departamentos$ | async; index as i">
                     <td *ngIf="w > 425" >
                         <img *ngIf="item?.foto" src="http://localhost:8080/api/departamentos/upload/img/{{item.foto}}"  class="img-thumbnail img-fluid" width="75" height="60">
-                        <img *ngIf="!item?.foto" src="http://localhost:8080/api/departamentos/upload/img/noImage.jpg"  class="img-thumbnail img-fluid">
+                        <img *ngIf="!item?.foto" src="http://localhost:8080/api/departamentos/upload/img/noImage.jpg"  class="img-thumbnail img-fluid" width="75" height="60">
                     </td>
                     <th scope="row">{{item.idDepartamento}}</th>
                     <td>
@@ -62,9 +62,9 @@
                                 </button>
                             </div>
                             <div class="col">
-                                <button class="btn btn-info w-100"  (click)="eliminarDepartamento(item.idDepartamento || 0)">
-                                    Subir Foto
-                                </button>
+                                <label class="btn btn-info w-100">
+                                    Foto <input (change)="seleccionarFoto($event , item.idDepartamento)" type="file" style="display: none;" required>
+                                </label>
                             </div>
                         </div>
                     </td>
