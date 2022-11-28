@@ -6,7 +6,7 @@
             </div>
         </div>
     </form>
-    
+
     <table class="table table-striped text-center table-bordered">
         <thead class="bg-primary text-light">
             <tr>
@@ -16,9 +16,9 @@
                 <th scope="col">Hab.</th>
                 <th scope="col">Baños.</th>
                 <th scope="col">Valor Dia</th>
-                <th scope="col">Tamaño</th>
+                <th scope="col">Tamaño M2</th>
                 <th scope="col">Operaciones</th>
-            
+
             </tr>
         </thead>
         <tbody>
@@ -30,9 +30,10 @@
                 <td><ngb-highlight [result]="item.comuna.nombre " [term]="filter.value"></ngb-highlight></td>
                 <td><ngb-highlight [result]="item.ctdHabitaciones | number" [term]="filter.value"></ngb-highlight></td>
                 <td><ngb-highlight [result]="item.ctdBanos | number" [term]="filter.value"></ngb-highlight></td>
+                <td>{{item.valorArriendoDia | currency:'CLP'}}</td>
                 <td><ngb-highlight [result]="item.tamano | number" [term]="filter.value"></ngb-highlight></td>
 
-                <td>{{item.valorArriendoDia | currency:'CLP'}}</td>
+
 
                 <td>
                     <div class="row">
