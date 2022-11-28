@@ -11,7 +11,7 @@
             <form>
                 <div class="my-3 row">
                     <div class="col">
-                        <input id="table-filtering-search" placeholder="Ingrese producto" class="form-control" type="text" [formControl]="filter" />
+                        <input id="table-filtering-search" placeholder="Ingrese nombre del producto" class="form-control" type="text" [formControl]="filter" />
                     </div>
                     <div class="col">
                         <button class="btn btn-warning w-100" (click)="open(content)">
@@ -38,7 +38,7 @@
                         <td>
                             <ngb-highlight [result]="item.producto.nombre" [term]="filter.value"></ngb-highlight>
                         </td>
-                        <td><ngb-highlight [result]="item.producto.valor | number" [term]="filter.value"></ngb-highlight></td>
+                        <td *ngIf="w > 425">{{item.producto.valor.toString() | currency:'CLP'}}</td>
                         <td><ngb-highlight [result]="item.cantidad | number" [term]="filter.value"></ngb-highlight></td>
                         <td>
                             <button class="btn btn-danger" (click)="borrarInventarioProducto(item.idInventarioProducto || 0)"><i class="fas fa-times"></i></button>
@@ -78,7 +78,7 @@
 	</div>
 	<div class="modal-footer">
         <div class="alert alert-secondary p-0 p-2">
-            <p> <small>Si no encuentras el producto que quieres agregar , debes crearlo en el <a routerLink="/mantenedores">mantenedor de productos</a> </small></p>
+            <p> <small>Si no encuentras el producto que quieres agregar , debes crearlo en el <a routerLink="/mantenedor-productos">mantenedor de productos</a> </small></p>
 
         </div>
 		<button type="submit" class="btn btn-primary w-100">Agregar al inventario</button>

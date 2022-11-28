@@ -21,6 +21,7 @@ export class InventarioComponent implements OnInit {
   filter = new FormControl('', { nonNullable: true });
   maestroProductos: Producto[];
   formAddInventario: FormGroup;
+  w: number = window.innerWidth
 
 
   constructor(
@@ -94,14 +95,14 @@ export class InventarioComponent implements OnInit {
     this.dS.editarDepartamento( this.departamento , Number(this.departamento.idDepartamento)).subscribe({
       next: (n) => {
         this.getDepartamentoById(this.departamento.idDepartamento);
-        Swal.fire("Inventario Acutalizado","se ha actualizado correctamente el inventario del departamento id: " + this.departamento.idDepartamento , "success");
+        Swal.fire("Inventario Actualizado","se ha actualizado correctamente el inventario del departamento id: " + this.departamento.idDepartamento , "success");
         this.modalService.dismissAll()
       }
     })
   } 
   borrarInventarioProducto( id:number){
     this.pS.deleteInvetarioProductoById(id).subscribe( (x) => {
-      Swal.fire("OK","quedo pulento","success");
+      Swal.fire("Producto Eliminado","El Producto fue eliminado del inventario correctamente","success");
       this.getDepartamentoById(this.departamento.idDepartamento);
     })
   }

@@ -33,6 +33,7 @@ export class MantencionesComponent implements OnInit {
   parsedDisabledDatesMantenciones:NgbDateStruct[];
 
   listadoReservas: Reserva[];
+  w: number = window.innerWidth
   
 
 
@@ -169,5 +170,7 @@ export class MantencionesComponent implements OnInit {
     console.log(this.formMantenciones.value)
 
   }
+
+  
 
 }

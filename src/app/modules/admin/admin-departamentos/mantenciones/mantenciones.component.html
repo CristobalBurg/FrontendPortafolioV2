@@ -12,7 +12,7 @@
             <form>
                 <div class="my-3 row">
                     <div class="col-sm-6">
-                        <input id="table-filtering-search" placeholder="Ingrese producto" class="form-control" type="text" [formControl]="filter" />
+                        <input id="table-filtering-search" placeholder="Ingrese el nombre de mantención" class="form-control" type="text" [formControl]="filter" />
                     </div>
                     <div class="col-sm-6">
                         <button class="btn btn-primary w-100" (click)="open(content)">
@@ -41,7 +41,7 @@
                         </td>
                         <td><ngb-highlight [result]="item.fechaInicio " [term]="filter.value"></ngb-highlight></td>
                         <td><ngb-highlight [result]="item.fechaFin" [term]="filter.value"></ngb-highlight></td>
-                        <td><ngb-highlight [result]="item.mantencion.valor | number" [term]="filter.value"></ngb-highlight></td>
+                        <td *ngIf="w > 425">{{item.mantencion.valor.toString() | currency:'CLP'}}</td>
                     </tr>
                 </tbody>
             </table>
