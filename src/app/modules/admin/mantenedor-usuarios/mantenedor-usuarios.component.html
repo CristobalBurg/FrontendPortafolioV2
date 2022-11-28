@@ -1,0 +1,127 @@
+<div class="container mt-3">
+    <div class="alert alert-secondary text-center">
+        <h3> <b><i> Mantenedor Usuarios</i></b></h3>
+    </div>
+</div>
+<div class="container mt-3">
+    <form>
+        <div class="mb-3 row">
+            <div class="col-md-6 ">
+                <input id="table-filtering-search" placeholder="Ingrese algun campo" class="form-control" type="text"  [formControl]="filter" />
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-success w-100"  (click)="open(content)">
+                    Agregar Usuario
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="table-responsive">
+        <table class="table table-striped text-center table-bordered table-responsive">
+            <thead class="bg-primary text-light">
+                <tr>
+                    <th scope="col">Rut</th>
+                    <th scope="col">Nombre</th>
+                    <th  *ngIf="w > 425" scope="col">Apellido</th>
+                    <th  *ngIf="w > 425" scope="col">Usuario</th>
+                    <th *ngIf="w > 425"  scope="col">Contraseña</th>
+                    <th *ngIf="w > 425"  scope="col">Telefono</th>
+                    <th *ngIf="w > 425"  scope="col">Email</th>
+                    <th scope="col">Operaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of usuarios$ | async; index as i">
+                    <th scope="row">{{item.rutUsuario}}</th>
+                    <td><ngb-highlight [result]="item.nombre" [term]="filter.value"></ngb-highlight></td>
+                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.apellido " [term]="filter.value"></ngb-highlight></td>
+                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.username" [term]="filter.value"></ngb-highlight></td>
+                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.password " [term]="filter.value"></ngb-highlight></td>
+                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.telefono " [term]="filter.value"></ngb-highlight></td>
+                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.email" [term]="filter.value"></ngb-highlight></td>
+                    <td>
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-warning w-100" (click)="editarUsuario(item , content)" >
+                                    Editar
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-danger w-100 "  [ngClass]="w < 425 ? 'my-1' : ''" (click)="eliminarUsuario(item.rutUsuario || '')">
+                                    Eliminar
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+<!-- ///////////////////////////////MODAL/////////////////////////////-->
+
+<ng-template #content let-modal>
+    <form [formGroup]="formUsuarios" (ngSubmit)="agregarUsuario()">
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-mantenedor-usuario">{{isEdit ? 'Editar usuario' : 'Agregar Usuario'}}</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Rut usuario</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="rut" formControlName="rutUsuario">
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nombre</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="nombre">
+                      </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Apellido</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="apellido">
+                      </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nombre Usuario</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="username">
+                      </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Clave</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="password">
+                      </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Telefono</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="telefono">
+                      </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="email">
+                      </div>
+                </div>
+              </div>
+              
+            
+	</div>
+	<div class="modal-footer">
+		<button type="submit" class="btn btn-success w-100" (click)="modal.close('Save click')">{{isEdit ? 'Editar' : 'Agregar'}}</button>
+	</div>
+</form>
+
+</ng-template>
+
+

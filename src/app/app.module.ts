@@ -30,6 +30,9 @@ import { InventarioComponent } from './modules/admin/admin-departamentos/inventa
 import { MantencionesComponent } from './modules/admin/admin-departamentos/mantenciones/mantenciones.component';
 import { AdminMantenedoresComponent } from './modules/admin/admin-mantenedores/admin-mantenedores.component';
 import { MantenedorDepartamentosComponent } from './modules/admin/mantenedor-departamentos/mantenedor-departamentos.component';
+import { MantenedorUsuariosComponent } from './modules/admin/mantenedor-usuarios/mantenedor-usuarios.component';
+import { MantenedorMantencionesComponent } from './modules/admin/mantenedor-mantenciones/mantenedor-mantenciones.component';
+import { MantenedorServiciosExtraComponent } from './modules/admin/mantenedor-serviciosextra/mantenedor-serviciosextra.component';
 
 
 @NgModule({
@@ -53,7 +56,10 @@ import { MantenedorDepartamentosComponent } from './modules/admin/mantenedor-dep
     InventarioComponent,
     MantencionesComponent,
     AdminMantenedoresComponent,
-    MantenedorDepartamentosComponent
+    MantenedorDepartamentosComponent,
+    MantenedorUsuariosComponent,
+    MantenedorMantencionesComponent,
+    MantenedorServiciosExtraComponent,
   ],
   imports: [
     BrowserModule,

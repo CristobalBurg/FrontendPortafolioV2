@@ -1,0 +1,90 @@
+<div class="container mt-3">
+    <div class="alert alert-secondary text-center">
+        <h3> <b><i> Mantenedor Mantenciones</i></b></h3>
+    </div>
+</div>
+<div class="container mt-3">
+    <form>
+        <div class="mb-3 row">
+            <div class="col-md-6 ">
+                <input id="table-filtering-search" placeholder="Ingrese ID, Descripción o Valor" class="form-control" type="text"  [formControl]="filter" />
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-success w-100"  (click)="open(content)">
+                    Agregar Mantencion
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="table-responsive">
+        <table class="table table-striped text-center table-bordered table-responsive">
+            <thead class="bg-primary text-light">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Descripcion</th>
+                    <th  *ngIf="w > 425" scope="col">Valor</th>
+                    <th scope="col">Operaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of mantenciones$ | async; index as i">
+                    <th scope="row">{{item.idMantencion}}</th>
+                    <td><ngb-highlight [result]="item.descripcion" [term]="filter.value"></ngb-highlight></td>
+                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.valor.toString() " [term]="filter.value"></ngb-highlight></td>
+                    <td>
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-warning w-100" (click)="editarMantencion(item , content)" >
+                                    Editar
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-danger w-100 "  [ngClass]="w < 425 ? 'my-1' : ''" (click)="eliminarMantencion(item.idMantencion || 0)">
+                                    Eliminar
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+<!-- ///////////////////////////////MODAL/////////////////////////////-->
+
+<ng-template #content let-modal>
+    <form [formGroup]="formMantenciones" (ngSubmit)="agregarMantencion()">
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-mantenedor-mantencion">{{isEdit ? 'Editar mantencion' : 'Agregar Mantencion'}}</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Descripción</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"  formControlName="descripcion"></textarea>
+                        <small  *ngIf="this.formMantenciones.get('descripcion')?.errors?.['required']"> <p class="text-danger"> <i>(La descripcion no puede estar vacia)</i></p> </small>
+                      </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Valor</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="valor">
+                      </div>
+                </div>
+              </div>     
+            </div>      
+	</div>
+	<div class="modal-footer">
+		<button type="submit" class="btn btn-success w-100" (click)="modal.close('Save click')">{{isEdit ? 'Editar' : 'Agregar'}}</button>
+	</div>
+</form>
+
+</ng-template>
+
+

@@ -1,0 +1,122 @@
+<div class="container mt-3">
+    <div class="alert alert-secondary text-center">
+        <h3> <b><i> Mantenedor Servicios Extra</i></b></h3>
+    </div>
+</div>
+<div class="container mt-3">
+    <form>
+        <div class="mb-3 row">
+            <div class="col-md-6 ">
+                <input id="table-filtering-search" placeholder="Ingrese Nombre del servicio" class="form-control" type="text"  [formControl]="filter" />
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-success w-100"  (click)="open(content)">
+                    Agregar Departamento
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="table-responsive">
+        <table class="table table-striped text-center table-bordered table-responsive">
+            <thead class="bg-primary text-light">
+                <tr>
+                    <th *ngIf="w > 425"></th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Descripción</th>
+                    <th  *ngIf="w > 425" scope="col">Nombre</th>
+                    <th  *ngIf="w > 425" scope="col">Tipo Precio</th>
+                    <th *ngIf="w > 425"  scope="col">Valor</th>
+                    <th scope="col">Operaciones</th>
+                
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of serviciosextra$ | async; index as i">
+                    <td *ngIf="w > 425" >
+                        <img *ngIf="item?.foto" src="http://localhost:8080/api/departamentos/upload/img/{{item.foto}}"  class="img-thumbnail img-fluid" width="75" height="60">
+                        <img *ngIf="!item?.foto" src="http://localhost:8080/api/departamentos/upload/img/noImage.jpg"  class="img-thumbnail img-fluid" width="75" height="60">
+                    </td>
+                    <th scope="row">{{item.idServicioExtra}}</th>
+                    <td>
+                        <ngb-highlight [result]="item.descripcion" [term]="filter.value"></ngb-highlight>
+                    </td>
+                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.nombre " [term]="filter.value"></ngb-highlight></td>
+                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.tipoPrecio| number" [term]="filter.value"></ngb-highlight></td>
+                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.valor| number" [term]="filter.value"></ngb-highlight></td>
+                    <td>
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-warning w-100" (click)="editarServicioExtra(item , content)" >
+                                    Editar
+                                </button>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-danger w-100 "  [ngClass]="w < 425 ? 'my-1' : ''" (click)="eliminarServicioExtra(item.idServicioExtra || 0)">
+                                    Eliminar
+                                </button>
+                            </div>
+                            <div class="col">
+                                <label class="btn btn-info w-100">
+                                    Foto <input (change)="seleccionarFoto($event , item.idServicioExtra)" type="file" style="display: none;" required>
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+<!-- ///////////////////////////////MODAL/////////////////////////////-->
+
+<ng-template #content let-modal>
+    <form [formGroup]="formServiciosExtra" (ngSubmit)="agregarServicioExtra()">
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-mantenedor-servicioextra">{{isEdit ? 'Editar Servicio Extra' : 'Agregar ServicioExtra'}}</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+            <div class="form-group">
+                <label for="exampleInputEmail1">ID</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="direccion" formControlName="idServicioExtra">
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Descripción</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="descripcion">
+                      </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nombre</label>
+                        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="nombre">
+                      </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tipo Precio</label>
+                        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="tipoPrecio">
+                      </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Valor</label>
+                        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="valor">
+                      </div>
+                </div>
+              </div>            
+	</div>
+	<div class="modal-footer">
+		<button type="submit" class="btn btn-success w-100" (click)="modal.close('Save click')">{{isEdit ? 'Editar' : 'Agregar'}}</button>
+	</div>
+</form>
+
+</ng-template>
+
+
