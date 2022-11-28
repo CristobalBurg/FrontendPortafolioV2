@@ -86,7 +86,7 @@ export class MantenedorTransportistasComponent implements OnInit {
 
   getTransportistas(){
     this.tS.obtenerTrasportistas().subscribe( (transportistas) => {
-      this.transportistas = transportistas;
+      this.transportistas = transportistas.filter( (t) => t.rutTransportista !== "0");
       this.transportistas$ = this.filter.valueChanges.pipe(
         startWith(''),
         map((text) => this.search(text)));    } );
@@ -130,7 +130,7 @@ export class MantenedorTransportistasComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.tS.borrarTransportista(rut).subscribe( (res) => {
-          Swal.fire("Departamento Eliminado","El departamento fue eliminado correctamente","info");
+          Swal.fire("Transportista Eliminado","El Transportista fue eliminado correctamente","info");
           this.getTransportistas();
         })
       }

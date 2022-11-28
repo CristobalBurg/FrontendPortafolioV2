@@ -1,0 +1,123 @@
+<div class="container">
+    <div class="row mt-4 ">
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3 w-100" >
+                <div class="card-header">Ingresos totales</div>
+                <div class="card-body">
+                  <h5 class="card-title">{{ingresosTotales | currency:'CLP'}}</h5>
+                  <p class="card-text"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-danger mb-3 w-100" >
+                <div class="card-header">Egresos totales</div>
+                <div class="card-body">
+                  <h5 class="card-title">{{egresosTotales * -1 | currency:'CLP'}}</h5>
+                  <p class="card-text"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-3 w-100" >
+                <div class="card-header">Cantidad de reservas totales</div>
+                <div class="card-body">
+                  <h5 class="card-title">{{reservasTotales}}</h5>
+                  <p class="card-text"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" *ngIf="reportes && reportes.length == 0"> 
+    <div class="alert alert-secondary" >
+        <h5>No hay registros de ventas</h5>
+    </div>
+</div>
+
+<div class="container mt-3" *ngIf="reportes && reportes.length > 0">
+    <form>
+        <div class="mb-3 row">
+            <div class="col-md-6 ">
+                <input id="table-filtering-search" placeholder="Ingrese Direccion o comuna" class="form-control" type="text"  [formControl]="filter" />
+            </div>
+        </div>
+    </form>
+    <div class="table-responsive">
+        <table class="table table-striped text-center table-bordered table-responsive">
+            <thead class="bg-primary text-light">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th>Dirección</th>
+                    <th scope="col">Comuna</th>
+                    <th scope="col">Dias Reservado</th>
+                    <th  *ngIf="w > 425" scope="col">Fecha Primera Reserva</th>
+                    <th  *ngIf="w > 425" scope="col">Fecha Ultima Reserva</th>
+                    <th *ngIf="w > 425"  scope="col">Cantidad Reservas.</th>
+                    <th *ngIf="w > 425"  scope="col">Ingresos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of reportes$ | async; index as i">
+                    <td>
+                        <ngb-highlight [result]="item.id_departamento | number" [term]="filter.value"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="item.departamento " [term]="filter.value"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="item.comuna" [term]="filter.value"></ngb-highlight>
+                    </td>
+                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.dias | number " [term]="filter.value"></ngb-highlight></td>
+                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.fecha_primera_reserva | date" [term]="filter.value"></ngb-highlight></td>
+                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.fecha_ultima_reserva | date " [term]="filter.value"></ngb-highlight></td>
+                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.numero_reservas | number " [term]="filter.value"></ngb-highlight></td>
+                    <td *ngIf="w > 425" class="bg-success text-light"><ngb-highlight [result]="item.ingresos | currency:'CLP'" [term]="filter.value"></ngb-highlight></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<div class="container mt-3" *ngIf="listadoPagos && listadoPagos.length > 0">
+    <form>
+        <div class="mb-3 row">
+            <div class="col-md-6 ">
+                <input id="table-filtering-search" placeholder="Ingrese Direccion o comuna" class="form-control" type="text"  [formControl]="filter" />
+            </div>
+        </div>
+    </form>
+    <div class="table-responsive">
+        <table class="table table-striped text-center table-bordered table-responsive">
+            <thead class="bg-primary text-light">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th>Fecha</th>
+                    <th scope="col">Medio de Pago</th>
+                    <th scope="col">Observación</th>
+                    <th  *ngIf="w > 425" scope="col">Monto</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of listadoPagos$ | async; index as i">
+                    <td>
+                        <ngb-highlight [result]="item.idPago | number" [term]="filter.value"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="item.fecha " [term]="filter.value"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="item.medioPago" [term]="filter.value"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="item.observacion" [term]="filter.value"></ngb-highlight>
+                    </td>
+
+                    <td *ngIf="w > 425" class="bg-danger text-light"><ngb-highlight [result]="item.monto * -1 | currency:'CLP'" [term]="filter.value"></ngb-highlight></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

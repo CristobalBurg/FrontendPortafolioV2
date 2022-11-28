@@ -105,7 +105,8 @@ export class MantenedorDepartamentosComponent implements OnInit {
       this.departamentos = departamentos;
       this.departamentos$ = this.filter.valueChanges.pipe(
         startWith(''),
-        map((text) => this.search(text)));    } );
+        map((text) => this.search(text)));
+    } );
   }
 
   editarDepartamento( departamento: Departamento , content ){

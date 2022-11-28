@@ -11,7 +11,7 @@ import { Pago, Producto, Reserva } from '../interfaces/reserva.interface';
 export class ProductoService {
 
   url : string = environment.BACKEND_URL + '/api/productos';
-  urlMantencion : string = environment.BACKEND_URL + '/api/mantencion';
+  urlMantencion : string = environment.BACKEND_URL + '/api/mantenciones';
 
   constructor(private http:HttpClient) { }
 
@@ -26,7 +26,7 @@ export class ProductoService {
   }
 
   getMantenciones(): Observable<Mantencion[]>{
-    let segment = '/listadoMantenciones';
+    let segment = '/listarMantenciones';
     return this.http.get<Mantencion[]>(this.urlMantencion + segment)
   }
 
@@ -56,4 +56,11 @@ export class ProductoService {
     let segment = '/'  + id;
     return this.http.put(this.url  + segment , producto )
   }
+
+
+  listarPagos( ):Observable<Pago[]>{
+    let segment = '/listarPagos'
+    return this.http.get<Pago[]>(this.urlMantencion + segment)
+  }
+
 }

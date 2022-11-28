@@ -35,6 +35,7 @@ import { MantenedorMantencionesComponent } from './modules/admin/mantenedor-mant
 import { MantenedorServiciosExtraComponent } from './modules/admin/mantenedor-serviciosextra/mantenedor-serviciosextra.component';
 import { MantenedorTransportistasComponent } from './modules/admin/mantenedor-transportistas/mantenedor-transportistas.component';
 import { MantenedorProductosComponent } from './modules/admin/mantenedor-productos/mantenedor-productos.component';
+import { AdminReportesComponent } from './modules/admin/admin-reportes/admin-reportes.component';
 
 
 
@@ -64,7 +65,8 @@ import { MantenedorProductosComponent } from './modules/admin/mantenedor-product
     MantenedorMantencionesComponent,
     MantenedorServiciosExtraComponent,
     MantenedorTransportistasComponent,
-    MantenedorProductosComponent
+    MantenedorProductosComponent,
+    AdminReportesComponent
   ],
   imports: [
     BrowserModule,

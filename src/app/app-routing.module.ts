@@ -19,6 +19,7 @@ import { MantenedorMantencionesComponent } from './modules/admin/mantenedor-mant
 import { MantenedorServiciosExtraComponent } from './modules/admin/mantenedor-serviciosextra/mantenedor-serviciosextra.component';
 import { MantenedorProductosComponent } from './modules/admin/mantenedor-productos/mantenedor-productos.component';
 import { MantenedorTransportistasComponent } from './modules/admin/mantenedor-transportistas/mantenedor-transportistas.component';
+import { AdminReportesComponent } from './modules/admin/admin-reportes/admin-reportes.component';
 
 
 
@@ -44,6 +45,8 @@ const routes: Routes = [
   {path: 'mantenedor-serviciosextra', component: MantenedorServiciosExtraComponent},
   {path: 'mantenedor-transportistas', component: MantenedorTransportistasComponent},
   {path: 'mantenedor-productos', component: MantenedorProductosComponent},
+  {path: 'admin-reportes', component: AdminReportesComponent},
+
 
 ];
 

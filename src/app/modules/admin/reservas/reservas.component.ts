@@ -47,6 +47,7 @@ export class ReservasComponent implements OnInit {
   generarCheckin( reserva:Reserva ){
     let checkIn = {} as CheckIn;
     checkIn.reserva  = reserva;
+    console.log(reserva)
     checkIn.firmado = false;
     this.rS.crearCheckin(checkIn).subscribe( (x) => {
       Swal.fire("TODO OK","Checkin registrado correctamente , haz click denuevo para imprimirlo","success")
@@ -59,6 +60,7 @@ export class ReservasComponent implements OnInit {
   imprimirCheckin( idReserva: number) {
     this.spinner.show()
     let selectedCheckin = this.listadoCheckins.find( (ci) =>  ci.reserva.idReserva == idReserva);
+    console.log("SC",selectedCheckin)
     this.rS.imprimirCheckin(selectedCheckin?.idCheckIn || 0)
     .subscribe( {
       next: (response) => {
