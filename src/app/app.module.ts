@@ -40,6 +40,7 @@ import { ErrorLandingComponent } from './shared/error-landing/error-landing.comp
 import { TestimoniosComponent } from './modules/Cliente/testimonios/testimonios.component';
 import { NotFoundLandingComponent } from './shared/not-found-landing/not-found-landing.component';
 import { ContactanosComponent } from './modules/Cliente/contactanos/contactanos.component';
+import { PoliticasComponent } from './modules/Cliente/politicas/politicas.component';
 
 
 
@@ -75,7 +76,8 @@ import { ContactanosComponent } from './modules/Cliente/contactanos/contactanos.
     ErrorLandingComponent,
     TestimoniosComponent,
     NotFoundLandingComponent,
-    ContactanosComponent
+    ContactanosComponent,
+    PoliticasComponent
   ],
   imports: [
     BrowserModule,

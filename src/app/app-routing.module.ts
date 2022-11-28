@@ -26,6 +26,7 @@ import { AdminGuard } from './shared/guards/admin.guard';
 import { TestimoniosComponent } from './modules/Cliente/testimonios/testimonios.component';
 import { NotFoundLandingComponent } from './shared/not-found-landing/not-found-landing.component';
 import { ContactanosComponent } from './modules/Cliente/contactanos/contactanos.component';
+import { PoliticasComponent } from './modules/Cliente/politicas/politicas.component';
 
 
 
@@ -56,6 +57,7 @@ const routes: Routes = [
   {path: 'error', component: ErrorLandingComponent},
   {path: 'testimonios' , component: TestimoniosComponent , },
   {path: 'contactanos' , component: ContactanosComponent , },
+  {path: 'politicas' , component: PoliticasComponent , },
   {path: '**', component: NotFoundLandingComponent },
 
   
