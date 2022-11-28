@@ -54,7 +54,7 @@ export interface Pago {
     tipoPago:    string;
     monto:       number;
     medioPago:   string;
-    fecha?:       Date;
+    fecha?:       Date | string;
     observacion?: string;
 }
 

@@ -25,13 +25,23 @@ export class NavbarComponent implements OnInit  {
 
   ngOnInit(): void {
     this.authedUser = this.aS.getUser();
-    this.isAdmin = this.authedUser.isAdmin === 1 ? true : false;
+    console.log(this.authedUser)
+    if (!this.authedUser){
+      this.isAdmin = false;
+    } else {
+      this.isAdmin = this.authedUser.isAdmin === 1 ? true : false;
+
+    }
   }
 
   logout(){
     this.aS.logout();
     Swal.fire("Has cerrado tu sesión","Recuerda que para realizar reservas debes estar autenticado","info");
     this.router.navigate(['/home'])
+  }
+
+  irPaso1(){
+
   }
 
 

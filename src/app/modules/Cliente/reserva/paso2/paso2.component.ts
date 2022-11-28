@@ -35,11 +35,24 @@ export class Paso2Component implements OnInit {
     private uS:UtilsService
     ) {
      this.departamento = this.router.getCurrentNavigation()?.extras.state?.departamento;
+
+     if(this.departamento){
+      this.departamento.departamentoMantenciones.forEach( (rs) => {
+        let listadofechas = this.uS.enumerateDaysBetweenDates(rs.fechaInicio, rs.fechaFin);
+        this.disabledDates = this.disabledDates.concat(listadofechas);
+        console.log(this.disabledDates)
+      })
+     }
      if (!this.departamento){ 
       this.activatedRoute.params.subscribe(params => {
         let id = params['id'];
         this.dS.obtenerDepartamentoById(id).subscribe( (x:Departamento) => {
           this.departamento = x;
+          this.departamento.departamentoMantenciones.forEach( (rs) => {
+            let listadofechas = this.uS.enumerateDaysBetweenDates(rs.fechaInicio, rs.fechaFin);
+            this.disabledDates = this.disabledDates.concat(listadofechas);
+            console.log(this.disabledDates)
+          })
         })
         });
      }
@@ -47,6 +60,7 @@ export class Paso2Component implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
     this.rS.getReservas().subscribe( (x) => {
       this.listadoReservas = x.filter( (x) => {
         return x.departamento.idDepartamento === this.departamento.idDepartamento
@@ -58,6 +72,7 @@ export class Paso2Component implements OnInit {
       this.parsedDisabledDates = this.disabledDates.map( (md) => {
         return this.ngbPF.parse(md) as NgbDateStruct
       })
+      
     })
   }
 

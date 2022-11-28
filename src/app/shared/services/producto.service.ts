@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Mantencion } from '../interfaces/departamento.interface';
-import { Producto, Reserva } from '../interfaces/reserva.interface';
+import { Pago, Producto, Reserva } from '../interfaces/reserva.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +32,14 @@ export class ProductoService {
     let segment = '/listadoMantenciones';
     return this.http.get<Mantencion[]>(this.urlMantencion + segment)
   }
+
+
+  ingresarPago( pago: Pago ){
+    let segment = '/pago'
+    return this.http.post(this.urlMantencion + segment , pago)
+  }
+
+
 
 
 
