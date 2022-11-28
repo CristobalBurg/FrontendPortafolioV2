@@ -17,8 +17,8 @@ import { MantenedorDepartamentosComponent } from './modules/admin/mantenedor-dep
 import { MantenedorUsuariosComponent } from './modules/admin/mantenedor-usuarios/mantenedor-usuarios.component';
 import { MantenedorMantencionesComponent } from './modules/admin/mantenedor-mantenciones/mantenedor-mantenciones.component';
 import { MantenedorServiciosExtraComponent } from './modules/admin/mantenedor-serviciosextra/mantenedor-serviciosextra.component';
-import { MantenedorTransportistasComponent } from './mantenedor-transportistas/mantenedor-transportistas.component';
 import { MantenedorProductosComponent } from './modules/admin/mantenedor-productos/mantenedor-productos.component';
+import { MantenedorTransportistasComponent } from './modules/admin/mantenedor-transportistas/mantenedor-transportistas.component';
 
 
 

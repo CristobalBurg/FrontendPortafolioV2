@@ -30,14 +30,12 @@ import { InventarioComponent } from './modules/admin/admin-departamentos/inventa
 import { MantencionesComponent } from './modules/admin/admin-departamentos/mantenciones/mantenciones.component';
 import { AdminMantenedoresComponent } from './modules/admin/admin-mantenedores/admin-mantenedores.component';
 import { MantenedorDepartamentosComponent } from './modules/admin/mantenedor-departamentos/mantenedor-departamentos.component';
-<<<<<<< Updated upstream
 import { MantenedorUsuariosComponent } from './modules/admin/mantenedor-usuarios/mantenedor-usuarios.component';
 import { MantenedorMantencionesComponent } from './modules/admin/mantenedor-mantenciones/mantenedor-mantenciones.component';
 import { MantenedorServiciosExtraComponent } from './modules/admin/mantenedor-serviciosextra/mantenedor-serviciosextra.component';
-=======
 import { MantenedorTransportistasComponent } from './modules/admin/mantenedor-transportistas/mantenedor-transportistas.component';
 import { MantenedorProductosComponent } from './modules/admin/mantenedor-productos/mantenedor-productos.component';
->>>>>>> Stashed changes
+
 
 
 @NgModule({
@@ -62,14 +60,11 @@ import { MantenedorProductosComponent } from './modules/admin/mantenedor-product
     MantencionesComponent,
     AdminMantenedoresComponent,
     MantenedorDepartamentosComponent,
-<<<<<<< Updated upstream
     MantenedorUsuariosComponent,
     MantenedorMantencionesComponent,
     MantenedorServiciosExtraComponent,
-=======
     MantenedorTransportistasComponent,
     MantenedorProductosComponent
->>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule,
