@@ -15,5 +15,6 @@ export interface Usuario {
     email:      string;
     telefono:   string;
     isAdmin:    number;
+    authorities: any[];
     
 }
