@@ -7,7 +7,7 @@
     <form>
         <div class="mb-3 row">
             <div class="col-md-6 ">
-                <input id="table-filtering-search" placeholder="Ingrese Nombre del servicio" class="form-control" type="text"  [formControl]="filter" />
+                <input id="table-filtering-search" placeholder="Ingrese datos a buscar" class="form-control" type="text"  [formControl]="filter" />
             </div>
             <div class="col-md-6">
                 <button class="btn btn-success w-100"  (click)="open(content)">
@@ -41,7 +41,7 @@
                     </td>
                     <td *ngIf="w > 425" ><ngb-highlight [result]="item.nombre " [term]="filter.value"></ngb-highlight></td>
                     <td *ngIf="w > 425" ><ngb-highlight [result]="item.tipoPrecio" [term]="filter.value"></ngb-highlight></td>
-                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.valor.toString()" [term]="filter.value"></ngb-highlight></td>
+                    <td *ngIf="w > 425">{{item.valor.toString() | currency:'CLP'}}</td>
                     <td>
                         <div class="row">
                             <div class="col">
@@ -82,31 +82,32 @@
               <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Descripción</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="descripcion">
-                      </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
                         <label for="exampleInputEmail1">Nombre</label>
                         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="nombre">
                       </div>
                 </div>
-              </div>
-              <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Tipo Precio</label>
                         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="tipoPrecio">
                       </div>
                 </div>
+              </div>
+              <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Valor</label>
-                        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="valor">
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="valor">
                       </div>
                 </div>
               </div>
+              <div class="col-md-6 w-100">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Descripción</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"  formControlName="descripcion"></textarea>
+                    <small  *ngIf="this.formServiciosExtra.get('descripcion')?.errors?.['required']"> <p class="text-danger"> <i>(La descripcion no puede estar vacia)</i></p> </small>
+                  </div>
+            </div>
             </div>            
 	</div>
 	<div class="modal-footer">

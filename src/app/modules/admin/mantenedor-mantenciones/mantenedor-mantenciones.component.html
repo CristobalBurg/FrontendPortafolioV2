@@ -7,7 +7,7 @@
     <form>
         <div class="mb-3 row">
             <div class="col-md-6 ">
-                <input id="table-filtering-search" placeholder="Ingrese ID, Descripción o Valor" class="form-control" type="text"  [formControl]="filter" />
+                <input id="table-filtering-search" placeholder="Ingrese datos a buscar" class="form-control" type="text"  [formControl]="filter" />
             </div>
             <div class="col-md-6">
                 <button class="btn btn-success w-100"  (click)="open(content)">
@@ -30,7 +30,7 @@
                 <tr *ngFor="let item of mantenciones$ | async; index as i">
                     <th scope="row">{{item.idMantencion}}</th>
                     <td><ngb-highlight [result]="item.descripcion" [term]="filter.value"></ngb-highlight></td>
-                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.valor.toString() " [term]="filter.value"></ngb-highlight></td>
+                    <td *ngIf="w > 425">{{item.valor.toString() | currency:'CLP'}}</td>
                     <td>
                         <div class="row">
                             <div class="col">

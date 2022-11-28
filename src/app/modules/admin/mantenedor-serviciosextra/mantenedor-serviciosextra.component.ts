@@ -112,8 +112,7 @@ export class MantenedorServiciosExtraComponent implements OnInit {
         sre.idServicioExtra?.toString().toLowerCase().includes(term) ||
         sre.nombre.toLowerCase().includes(term) ||
         sre.descripcion.toLowerCase().includes(term) ||
-        sre.tipoPrecio.toLowerCase().includes(term) ||
-        sre.valor.toString().toLowerCase().includes(term)
+        sre.tipoPrecio.toLowerCase().includes(term)
 
       );
     });

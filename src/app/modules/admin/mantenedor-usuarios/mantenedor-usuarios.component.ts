@@ -119,7 +119,8 @@ export class MantenedorUsuariosComponent implements OnInit {
         User.rutUsuario?.toLowerCase().includes(term) ||
         User.apellido.toLowerCase().includes(term)||
         User.telefono.toLowerCase().includes(term)||
-        User.email.toLowerCase().includes(term)
+        User.email.toLowerCase().includes(term)||
+        User.username.toLowerCase().includes(term)
       );
     });
   }

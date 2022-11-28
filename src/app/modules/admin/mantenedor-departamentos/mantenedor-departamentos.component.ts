@@ -129,9 +129,10 @@ export class MantenedorDepartamentosComponent implements OnInit {
       const term = text.toLowerCase();
       return (
         depto.direccion.toLowerCase().includes(term) ||
-        depto.comuna.nombre.toLowerCase().includes(term) 
-
-      );
+        depto.idDepartamento?.toString().toLowerCase().includes(term) ||
+        depto.comuna.nombre.toLowerCase().includes(term) ||
+        depto.tamano.toString().toLowerCase().includes(term)
+      );  
     });
   }
 

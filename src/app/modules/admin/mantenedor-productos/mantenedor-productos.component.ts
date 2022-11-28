@@ -92,11 +92,11 @@ export class MantenedorProductosComponent implements OnInit {
   }
 
   search(text: string): Producto[] {
-    return this.productos.filter((transportista) => {
+    return this.productos.filter((prod) => {
       const term = text.toLowerCase();
       return (
-        transportista.nombre.toLowerCase().includes(term) || transportista.idProducto?.toString().includes(term)
-
+        prod.nombre.toLowerCase().includes(term) || 
+        prod.idProducto?.toString().includes(term)
       );
     });
   }

@@ -111,8 +111,12 @@ export class MantenedorTransportistasComponent implements OnInit {
       const term = text.toLowerCase();
       return (
         transportista.nombre.toLowerCase().includes(term) ||
-        transportista.rutTransportista?.toLowerCase().includes(term)
-
+        transportista.rutTransportista?.toLowerCase().includes(term) ||
+        transportista.apellido.toLowerCase().includes(term) ||
+        transportista.contacto.toLowerCase().includes(term) ||
+        transportista.vehiculo.toLowerCase().includes(term) ||
+        transportista.fechaDesde.toLowerCase().includes(term) ||
+        transportista.fechaDesde.toLowerCase().includes(term)
       );
     });
   }

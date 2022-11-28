@@ -99,8 +99,7 @@ export class MantenedorMantencionesComponent implements OnInit {
       const term = text.toLowerCase();
       return (
         Mtn.idMantencion?.toString().toLowerCase().includes(term) ||
-        Mtn.descripcion.toLowerCase().includes(term) ||
-        Mtn.valor.toString().toLowerCase().includes(term)
+        Mtn.descripcion.toLowerCase().includes(term)
       );
     });
   }
