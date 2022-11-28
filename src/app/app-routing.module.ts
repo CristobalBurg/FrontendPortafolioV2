@@ -20,32 +20,40 @@ import { MantenedorServiciosExtraComponent } from './modules/admin/mantenedor-se
 import { MantenedorProductosComponent } from './modules/admin/mantenedor-productos/mantenedor-productos.component';
 import { MantenedorTransportistasComponent } from './modules/admin/mantenedor-transportistas/mantenedor-transportistas.component';
 import { AdminReportesComponent } from './modules/admin/admin-reportes/admin-reportes.component';
+import { ErrorLandingComponent } from './shared/error-landing/error-landing.component';
+import { AuthGuard } from './shared/guards/auth.guard';
+import { AdminGuard } from './shared/guards/admin.guard';
+import { NotFoundLandingComponent } from './shared/not-found-landing/not-found-landing.component';
 
 
 
 
 const routes: Routes = [
   {path: "", redirectTo: 'home', pathMatch:'full'},
-  {path: 'home' , component: LandingComponent},
+  {path: 'home' , component: LandingComponent , },
   {path: 'login' , component: LoginComponent},
   {path: 'register' , component: RegisterComponent},
-  {path: 'paso1' , component: Paso1Component},
-  {path: 'paso2/:id' , component: Paso2Component},
-  {path: 'paso3' , component: Paso3Component},
-  {path: 'paso4' , component: Paso4Component},
-  {path: 'admin-home' , component: AdminHomeComponent},
-  {path: 'admin-reservas' , component: ReservasComponent},
-  {path: 'admin-departamentos', component: AdminDepartamentosComponent},
-  {path: 'inventario/:id', component: InventarioComponent},
-  {path: 'mantenciones/:id', component: MantencionesComponent},
-  {path: 'mantenedores', component: AdminMantenedoresComponent},
-  {path: 'mantenedor-departamento', component: MantenedorDepartamentosComponent},
-  {path: 'mantenedor-usuarios', component: MantenedorUsuariosComponent},
-  {path: 'mantenedor-mantenciones', component: MantenedorMantencionesComponent},
-  {path: 'mantenedor-serviciosextra', component: MantenedorServiciosExtraComponent},
-  {path: 'mantenedor-transportistas', component: MantenedorTransportistasComponent},
-  {path: 'mantenedor-productos', component: MantenedorProductosComponent},
-  {path: 'admin-reportes', component: AdminReportesComponent},
+  {path: 'paso1' , component: Paso1Component , canActivate:[AuthGuard]},
+  {path: 'paso2/:id' , component: Paso2Component ,  canActivate:[AuthGuard]},
+  {path: 'paso3' , component: Paso3Component ,  canActivate:[AuthGuard]},
+  {path: 'paso4' , component: Paso4Component ,  canActivate:[AuthGuard]},
+  {path: 'admin-home' , component: AdminHomeComponent, canActivate:[AuthGuard, AdminGuard]},
+  {path: 'admin-reservas' , component: ReservasComponent ,  canActivate:[AuthGuard,AdminGuard]},
+  {path: 'admin-departamentos', component: AdminDepartamentosComponent ,  canActivate:[AuthGuard,AdminGuard]},
+  {path: 'inventario/:id', component: InventarioComponent ,  canActivate:[AuthGuard,AdminGuard]},
+  {path: 'mantenciones/:id', component: MantencionesComponent ,  canActivate:[AuthGuard,AdminGuard]},
+  {path: 'mantenedores', component: AdminMantenedoresComponent ,  canActivate:[AuthGuard,AdminGuard]},
+  {path: 'mantenedor-departamento', component: MantenedorDepartamentosComponent ,  canActivate:[AuthGuard,AdminGuard]},
+  {path: 'mantenedor-usuarios', component: MantenedorUsuariosComponent ,  canActivate:[AuthGuard,AdminGuard]},
+  {path: 'mantenedor-mantenciones', component: MantenedorMantencionesComponent ,  canActivate:[AuthGuard,AdminGuard]},
+  {path: 'mantenedor-serviciosextra', component: MantenedorServiciosExtraComponent ,  canActivate:[AuthGuard,AdminGuard]},
+  {path: 'mantenedor-transportistas', component: MantenedorTransportistasComponent ,  canActivate:[AuthGuard,AdminGuard]},
+  {path: 'mantenedor-productos', component: MantenedorProductosComponent ,  canActivate:[AuthGuard,AdminGuard]},
+  {path: 'admin-reportes', component: AdminReportesComponent ,  canActivate:[AuthGuard,AdminGuard]},
+  {path: 'error', component: ErrorLandingComponent},
+  { path: '**', component: NotFoundLandingComponent },
+
+
 
 
 ];

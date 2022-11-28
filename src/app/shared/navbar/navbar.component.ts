@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit  {
     .subscribe((user?: any) => {
       this.authedUser = user;
       this.isAdmin = this.authedUser.isAdmin === 1 ? true : false;
+      
     });
   }
    

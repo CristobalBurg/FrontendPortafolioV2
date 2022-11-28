@@ -42,6 +42,7 @@ export class RegisterComponent implements OnInit {
       let nuevoUsuario: Usuario = this.formRegister.value;
       delete nuevoUsuario.password2;
       nuevoUsuario.telefono = '+569' + nuevoUsuario.telefono;
+      nuevoUsuario.isAdmin = 2;
       this.aS.createUsuario(nuevoUsuario).subscribe( {
         next: () => { 
           Swal.fire({

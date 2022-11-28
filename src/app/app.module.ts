@@ -36,6 +36,8 @@ import { MantenedorServiciosExtraComponent } from './modules/admin/mantenedor-se
 import { MantenedorTransportistasComponent } from './modules/admin/mantenedor-transportistas/mantenedor-transportistas.component';
 import { MantenedorProductosComponent } from './modules/admin/mantenedor-productos/mantenedor-productos.component';
 import { AdminReportesComponent } from './modules/admin/admin-reportes/admin-reportes.component';
+import { ErrorLandingComponent } from './shared/error-landing/error-landing.component';
+import { NotFoundLandingComponent } from './shared/not-found-landing/not-found-landing.component';
 
 
 
@@ -66,7 +68,9 @@ import { AdminReportesComponent } from './modules/admin/admin-reportes/admin-rep
     MantenedorServiciosExtraComponent,
     MantenedorTransportistasComponent,
     MantenedorProductosComponent,
-    AdminReportesComponent
+    AdminReportesComponent,
+    ErrorLandingComponent,
+    NotFoundLandingComponent
   ],
   imports: [
     BrowserModule,

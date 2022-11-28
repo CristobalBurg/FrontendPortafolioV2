@@ -23,7 +23,7 @@
         <div *ngIf="w > 700" class="container">
           <div  class="carousel-caption">
             <h1 class="text-light text-border" >Departamentos en las mejores playas de Chile</h1>
-            <p><a class="btn btn-lg btn-primary" routerLink="/login">Iniciar Sesion</a></p>
+            <p><a class="btn btn-lg btn-primary" *ngIf="!currentUser" routerLink="/login">Iniciar Sesion</a></p>
           </div>
         </div>
       </div>

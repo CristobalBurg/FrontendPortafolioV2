@@ -1,13 +1,15 @@
-import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { catchError, Observable, throwError } from 'rxjs';
+import Swal from 'sweetalert2';
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
 
-    constructor(private aS:AuthService){
+    constructor(private aS:AuthService, private router:Router){
 
     }
 
@@ -19,7 +21,19 @@ export class AuthInterceptor implements HttpInterceptor {
                 setHeaders : {Authorization: "Bearer " + TOKEN}
             });
         }
-        return next.handle(authReq);
+        return next.handle(authReq).pipe(
+            catchError( (err: HttpErrorResponse) => {
+                if(err.status == 401){
+                    Swal.fire("Tu sesión expiró", "Vuelve a iniciar sesión","info");
+                    this.aS.logout();
+                }
+                if(err.status == 0 || err.status == 500){
+                    this.router.navigate(["error"])
+                }
+                return throwError(err)
+
+            })
+        );
     }
 }
 

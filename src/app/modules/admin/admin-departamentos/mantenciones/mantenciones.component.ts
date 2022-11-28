@@ -76,6 +76,7 @@ export class MantencionesComponent implements OnInit {
 
    ngOnInit(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    this.getDisabledDates();
     this.rS.getReservas().subscribe( (x) => {
       this.listadoReservas = x.filter( (x) => {
         return x.departamento.idDepartamento === this.departamento.idDepartamento
@@ -84,6 +85,8 @@ export class MantencionesComponent implements OnInit {
         let listadofechas = this.uS.enumerateDaysBetweenDates(rs.fechaLlegada, rs.fechaEntrega);
         this.disabledDates = this.disabledDates.concat(listadofechas);
       })
+
+      
       this.parsedDisabledDates = this.disabledDates.map( (md) => {
         return this.ngbPF.parse(md) as NgbDateStruct
       })
@@ -149,6 +152,7 @@ export class MantencionesComponent implements OnInit {
             newPago.observacion = newDepartamentoMantencion.mantencion.descripcion;
             this.pS.ingresarPago( newPago ).subscribe( () => {
               Swal.fire("Mantención agendada","se ha agendado correctamente la mantención" , "success");
+              this.getDisabledDates();
               this.modalService.dismissAll()
             })
           }
@@ -169,6 +173,27 @@ export class MantencionesComponent implements OnInit {
     this.formMantenciones.get('fechaFin')?.setValue(rangoFechas.fin);
     console.log(this.formMantenciones.value)
 
+  }
+
+  getDisabledDates(){
+    this.rS.getReservas().subscribe( (x) => {
+      this.listadoReservas = x.filter( (x) => {
+        return x.departamento.idDepartamento === this.departamento.idDepartamento
+      });
+      this.listadoReservas.forEach( (rs) => {
+        let listadofechas = this.uS.enumerateDaysBetweenDates(rs.fechaLlegada, rs.fechaEntrega);
+        this.disabledDates = this.disabledDates.concat(listadofechas);
+      })
+      this.departamento.departamentoMantenciones.forEach( (rs) => {
+        let listadofechas = this.uS.enumerateDaysBetweenDates(rs.fechaInicio, rs.fechaFin);
+        this.disabledDates = this.disabledDates.concat(listadofechas);
+        console.log(this.disabledDates)
+      })
+      this.parsedDisabledDates = this.disabledDates.map( (md) => {
+        return this.ngbPF.parse(md) as NgbDateStruct
+      })
+
+    })
   }
 
   
