@@ -26,7 +26,6 @@ export class MantenedorServiciosExtraComponent implements OnInit {
 
   constructor(private dS:ServicioExtraService , private modalService: NgbModal , private fb: FormBuilder) {
     this.formServiciosExtra = this.fb.group({
-      idServicioExtra: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
       tipoPrecio: ['', [Validators.required]],
@@ -54,7 +53,6 @@ export class MantenedorServiciosExtraComponent implements OnInit {
     } 
 
     let nuevoServicioExtra = {} as ServicioExtra;
-    nuevoServicioExtra.idServicioExtra = this.formServiciosExtra.get('idServicioExtra')?.value
     nuevoServicioExtra.descripcion = this.formServiciosExtra.get('descripcion')?.value;
     nuevoServicioExtra.nombre = this.formServiciosExtra.get('nombre')?.value;
     nuevoServicioExtra.tipoPrecio = this.formServiciosExtra.get('tipoPrecio')?.value;
@@ -101,7 +99,6 @@ export class MantenedorServiciosExtraComponent implements OnInit {
     this.servicioExtraSeleccionado = servicioextra;
     console.log(servicioextra)
     this.modalService.open(content, { ariaLabelledBy: 'modal-mantenedor-servicioextra' });
-    this.formServiciosExtra.get('idServicioExtra')?.setValue( servicioextra.idServicioExtra);
     this.formServiciosExtra.get('descripcion')?.setValue( servicioextra.descripcion);
     this.formServiciosExtra.get('nombre')?.setValue( servicioextra.nombre);
     this.formServiciosExtra.get('tipoPrecio')?.setValue( servicioextra.tipoPrecio);
@@ -113,7 +110,10 @@ export class MantenedorServiciosExtraComponent implements OnInit {
       const term = text.toLowerCase();
       return (
         sre.idServicioExtra?.toString().toLowerCase().includes(term) ||
-        sre.nombre.toLowerCase().includes(term) 
+        sre.nombre.toLowerCase().includes(term) ||
+        sre.descripcion.toLowerCase().includes(term) ||
+        sre.tipoPrecio.toLowerCase().includes(term) ||
+        sre.valor.toString().toLowerCase().includes(term)
 
       );
     });

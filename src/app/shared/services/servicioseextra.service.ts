@@ -11,7 +11,7 @@ import { ServicioExtra } from '../interfaces/reserva.interface';
 })
 export class ServicioExtraService {
 
-  url : string = environment.BACKEND_URL + '/api/serviciosextra';
+  url : string = environment.BACKEND_URL + '/api/reserva/servicioExtra';
 
 
   constructor(private httpClient: HttpClient) { }

@@ -11,7 +11,7 @@
             </div>
             <div class="col-md-6">
                 <button class="btn btn-success w-100"  (click)="open(content)">
-                    Agregar Departamento
+                    Agregar Servicio Extra
                 </button>
             </div>
         </div>
@@ -26,8 +26,7 @@
                     <th  *ngIf="w > 425" scope="col">Nombre</th>
                     <th  *ngIf="w > 425" scope="col">Tipo Precio</th>
                     <th *ngIf="w > 425"  scope="col">Valor</th>
-                    <th scope="col">Operaciones</th>
-                
+                    <th scope="col">Operaciones</th>               
                 </tr>
             </thead>
             <tbody>
@@ -41,8 +40,8 @@
                         <ngb-highlight [result]="item.descripcion" [term]="filter.value"></ngb-highlight>
                     </td>
                     <td *ngIf="w > 425" ><ngb-highlight [result]="item.nombre " [term]="filter.value"></ngb-highlight></td>
-                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.tipoPrecio| number" [term]="filter.value"></ngb-highlight></td>
-                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.valor| number" [term]="filter.value"></ngb-highlight></td>
+                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.tipoPrecio" [term]="filter.value"></ngb-highlight></td>
+                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.valor.toString()" [term]="filter.value"></ngb-highlight></td>
                     <td>
                         <div class="row">
                             <div class="col">
@@ -80,9 +79,6 @@
 	</div>
 	<div class="modal-body">
             <div class="form-group">
-                <label for="exampleInputEmail1">ID</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="direccion" formControlName="idServicioExtra">
-              </div>
               <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -93,7 +89,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Nombre</label>
-                        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="nombre">
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="nombre">
                       </div>
                 </div>
               </div>
@@ -101,7 +97,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Tipo Precio</label>
-                        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="tipoPrecio">
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="tipoPrecio">
                       </div>
                 </div>
                 <div class="col-md-6">
@@ -110,7 +106,8 @@
                         <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="valor">
                       </div>
                 </div>
-              </div>            
+              </div>
+            </div>            
 	</div>
 	<div class="modal-footer">
 		<button type="submit" class="btn btn-success w-100" (click)="modal.close('Save click')">{{isEdit ? 'Editar' : 'Agregar'}}</button>
