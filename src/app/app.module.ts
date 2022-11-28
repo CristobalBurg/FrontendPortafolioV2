@@ -39,6 +39,7 @@ import { AdminReportesComponent } from './modules/admin/admin-reportes/admin-rep
 import { ErrorLandingComponent } from './shared/error-landing/error-landing.component';
 import { TestimoniosComponent } from './modules/Cliente/testimonios/testimonios.component';
 import { NotFoundLandingComponent } from './shared/not-found-landing/not-found-landing.component';
+import { ContactanosComponent } from './modules/Cliente/contactanos/contactanos.component';
 
 
 
@@ -73,7 +74,8 @@ import { NotFoundLandingComponent } from './shared/not-found-landing/not-found-l
     AdminReportesComponent,
     ErrorLandingComponent,
     TestimoniosComponent,
-    NotFoundLandingComponent
+    NotFoundLandingComponent,
+    ContactanosComponent
   ],
   imports: [
     BrowserModule,
