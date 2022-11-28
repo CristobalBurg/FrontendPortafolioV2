@@ -7,3 +7,4 @@ export interface DesgloseTotal {
     totalAnticipo: number;
     
 }
+

@@ -20,7 +20,6 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item"  style="cursor: pointer;" (click)="logout()">Logout</a></li>
-              <li><a class="dropdown-item" href="#">Perfil</a></li>
    
             </ul>
           </li>
@@ -31,7 +30,9 @@
             <a class="nav-link" *ngIf="!isAdmin" href="#">Sobre Nosotros</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link"routerLink="/paso1">Reserva</a>
+            <a class="nav-link" *ngIf="authedUser" routerLink="/paso1">Reserva</a>
+            <a class="nav-link" *ngIf="!authedUser" routerLink="/login">Reserva</a>
+
           </li>
           <li class="nav-item" *ngIf="!authedUser">
             <a class="nav-link" aria-current="page" routerLink="/login">Login</a>

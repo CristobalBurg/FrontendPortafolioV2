@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDateParserFormatter, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import moment from 'moment';
 import { map, Observable, startWith } from 'rxjs';
 import { DepartamentoMantenciones, Mantencion } from 'src/app/shared/interfaces/departamento.interface';
-import { Departamento, Reserva } from 'src/app/shared/interfaces/reserva.interface';
+import { Departamento, Pago, Reserva } from 'src/app/shared/interfaces/reserva.interface';
 import { DepartamentoService } from 'src/app/shared/services/departamento.service';
 import { ProductoService } from 'src/app/shared/services/producto.service';
 import { ReservaService } from 'src/app/shared/services/reserva.service';
@@ -139,8 +140,16 @@ export class MantencionesComponent implements OnInit {
         this.dS.editarDepartamento( this.departamento , Number(this.departamento.idDepartamento)).subscribe({
           next: (n) => {
             this.getDepartamentoById(this.departamento.idDepartamento);
-            Swal.fire("Mantención agendada","se ha agendado correctamente la mantención" , "success");
-            this.modalService.dismissAll()
+            let newPago = {} as Pago;
+            newPago.monto = newDepartamentoMantencion.mantencion.valor * -1;
+            newPago.tipoPago = "MANTENCION"
+            newPago.medioPago = "DC",
+            newPago.fecha = moment().format('yyyy-MM-DD');
+            newPago.observacion = newDepartamentoMantencion.mantencion.descripcion;
+            this.pS.ingresarPago( newPago ).subscribe( () => {
+              Swal.fire("Mantención agendada","se ha agendado correctamente la mantención" , "success");
+              this.modalService.dismissAll()
+            })
           }
         })
       }
