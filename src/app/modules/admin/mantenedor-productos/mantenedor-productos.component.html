@@ -1,0 +1,96 @@
+<div class="container mt-3">
+  <div class="alert alert-secondary text-center">
+    <h3> <b><i> Mantenedor Productos</i></b></h3>
+  </div>
+</div>
+<div class="container mt-3">
+  <form>
+    <div class="mb-3 row">
+      <div class="col-md-6 ">
+        <input id="table-filtering-search" placeholder="Ingrese producto o id" class="form-control" type="text"  [formControl]="filter" />
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-success w-100"  (click)="open(content)">
+          Agregar Producto
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="table-responsive">
+    <table class="table table-striped text-center table-bordered table-responsive">
+      <thead class="bg-primary text-light">
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Valor</th>
+        <th scope="col">Operaciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of productos$ | async; index as i">
+        <th scope="row">{{item.idProducto}}</th>
+        <td>
+          <ngb-highlight [result]="item.nombre" [term]="filter.value"></ngb-highlight>
+        </td>
+        <td *ngIf="w > 425">{{item.valor.toString() | currency:'CLP'}}</td>
+
+        <td>
+          <div class="row">
+            <div class="col">
+              <button class="btn btn-warning w-100" (click)="editarProducto(item , content)" >
+                Editar
+              </button>
+            </div>
+            <div class="col">
+              <button class="btn btn-danger w-100 "  [ngClass]="w < 425 ? 'my-1' : ''" (click)="eliminarProducto(item.idProducto || 0)">
+                Eliminar
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+<!-- ///////////////////////////////MODAL/////////////////////////////-->
+
+<ng-template #content let-modal>
+  <form [formGroup]="formProductos" (ngSubmit)="agregarProducto()">
+
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-mantenedor-productos">{{isEdit ? 'Editar producto' : 'Agregar producto'}}</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Nombre</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="rut" formControlName="nombre">
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-6">
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Valor</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="valor">
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-success w-100" (click)="modal.close('Save click')">{{isEdit ? 'Editar' : 'Agregar'}}</button>
+    </div>
+  </form>
+
+</ng-template>
+

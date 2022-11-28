@@ -78,8 +78,8 @@ export interface Transportista {
     nombre:           string;
     apellido:         string;
     vehiculo:         string;
-    fechaDesde:       Date;
-    fechaHasta:       Date;
+    fechaDesde:       string;
+    fechaHasta:       string;
     contacto:         string;
 }
 

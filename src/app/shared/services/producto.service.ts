@@ -10,11 +10,8 @@ import { Pago, Producto, Reserva } from '../interfaces/reserva.interface';
 })
 export class ProductoService {
 
-
   url : string = environment.BACKEND_URL + '/api/productos';
   urlMantencion : string = environment.BACKEND_URL + '/api/mantencion';
-
-
 
   constructor(private http:HttpClient) { }
 
@@ -33,6 +30,10 @@ export class ProductoService {
     return this.http.get<Mantencion[]>(this.urlMantencion + segment)
   }
 
+  obtenerProductosById(id: number): Observable<Producto>{
+    let segment = '/' + id;
+    return this.http.get<Producto>(this.url + segment)
+  }
 
   ingresarPago( pago: Pago ){
     let segment = '/pago'
@@ -40,8 +41,19 @@ export class ProductoService {
   }
 
 
+  guardarProducto(nuevoProducto: Producto): Observable<Producto>{
+    let segment = '';
+    return this.http.post<Producto>(this.url + segment , nuevoProducto)
+  }
 
 
+  borrarProducto( id: number){
+    let segment = '/'  + id;
+    return this.http.delete(this.url + segment)
+  }
 
-
+  editarProducto(producto: Producto, id: number){
+    let segment = '/'  + id;
+    return this.http.put(this.url  + segment , producto )
+  }
 }
