@@ -23,7 +23,9 @@ import { AdminReportesComponent } from './modules/admin/admin-reportes/admin-rep
 import { ErrorLandingComponent } from './shared/error-landing/error-landing.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { AdminGuard } from './shared/guards/admin.guard';
+import { TestimoniosComponent } from './modules/Cliente/testimonios/testimonios.component';
 import { NotFoundLandingComponent } from './shared/not-found-landing/not-found-landing.component';
+
 
 
 
@@ -51,7 +53,10 @@ const routes: Routes = [
   {path: 'mantenedor-productos', component: MantenedorProductosComponent ,  canActivate:[AuthGuard,AdminGuard]},
   {path: 'admin-reportes', component: AdminReportesComponent ,  canActivate:[AuthGuard,AdminGuard]},
   {path: 'error', component: ErrorLandingComponent},
-  { path: '**', component: NotFoundLandingComponent },
+  {path: 'testimonios' , component: TestimoniosComponent , },
+  {path: '**', component: NotFoundLandingComponent },
+
+  
 
 
 
