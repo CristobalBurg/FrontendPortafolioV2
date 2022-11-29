@@ -13,8 +13,8 @@
 
         <div *ngIf="w > 700" class="container">
           <div class="carousel-caption text-start"> 
-            <h1 class="text-light "  routerLink="/paso1">Busca tu dempartamento ahora!</h1>
-            <p >Hermosos departamentos en las mejores zonas del pais</p>
+            <h1 class="text-light text-border "  routerLink="/paso1"><b>Busca tu dempartamento ahora!</b></h1>
+            <p class="text-light text-border "><b>Hermosos departamentos en las mejores zonas del pais</b></p>
           </div>
         </div>
       </div>
@@ -22,8 +22,8 @@
         <img src="../../../assets/img/depa12.jpg"  class="rounded img-fluid" alt="playa"  loading="lazy" preserveAspectRatio="xMidYMid slice" focusable="false">
         <div *ngIf="w > 700" class="container">
           <div  class="carousel-caption">
-            <h1 class="text-light text-border" >Departamentos en las mejores playas de Chile</h1>
-            <p><a class="btn btn-lg btn-primary" *ngIf="!currentUser" routerLink="/login">Iniciar Sesion</a></p>
+            <h1 class="text-light text-border" ><b>Departamentos en las mejores playas de Chile</b></h1>
+            <p><a class="btn btn-lg btn-primary" *ngIf="!currentUser" routerLink="/login"><b>Iniciar Sesion</b></a></p>
           </div>
         </div>
       </div>
@@ -32,8 +32,8 @@
 
         <div *ngIf="w > 700" class="container">
           <div  class="carousel-caption text-end">
-            <h1 class=" text-border text-light">Servicios Extras pensados en tu comodidad</h1>
-            <p class="text-border">Desayunos , tours , transporte y mucho más !</p>
+            <h1 class=" text-border text-light"><b>Servicios Extras pensados en tu comodidad</b></h1>
+            <p class="text-border"><b>  Desayunos , tours , transporte y mucho más !</b></p> 
           </div>
         </div>
       </div>
@@ -59,17 +59,15 @@
 
   
       <div class="row featurette mt-5">
-        <div class="col-md-7">
-          <h2 class="featurette-heading fw-normal lh-1">Turismo Real</h2>
-          <p class="lead">Turismo Real es una empresa con mas de 25 años en el rubro turistico , dando siempre las mejores alternativas de arreindo de departamentos a nuestros clientes , en los mejores sectores turisticos de Chile . Nuestra dedicación y experiencia nos avalan como una de las mas grandes compañias del rubro turistico. En alianza con distintas compañias de transporte y turismo que nos ayudan a brindar la mejor experiencia a nuestros clientes.</p>
+        <div class="col-md-6">
+          <h1 class="featurette-heading fw-normal lh-1"><b>Turismo Real</b> </h1>
+          <p class="lead"> Turismo Real es una empresa con mas de 25 años en el rubro turístico , dando siempre las mejores alternativas de arreindo de departamentos a nuestros clientes , en los mejores sectores turísticos de Chile . Nuestra dedicación y experiencia nos avalan como una de las mas grandes compañías del rubro turístico.</p>
           <button class="btn btn-primary mb-3" *ngIf="currentUser" routerLink="/paso1">Reserva Ahora!</button>
           <button class="btn btn-primary mb-3"  *ngIf="!currentUser" routerLink="/login">Reserva Ahora!</button>
 
         </div>
-        <div class="col-md-5">
+        <div class="col-md-6">
           <img src="../../../assets/img/playa.jpg"  class="rounded img-fluid" alt="playa"  loading="lazy" preserveAspectRatio="xMidYMid slice" focusable="false">
-
-  
         </div>
       </div>
   
