@@ -42,6 +42,7 @@ import { NotFoundLandingComponent } from './shared/not-found-landing/not-found-l
 import { ContactanosComponent } from './modules/Cliente/contactanos/contactanos.component';
 import { PoliticasComponent } from './modules/Cliente/politicas/politicas.component';
 import { AcercaDeComponent } from './modules/Cliente/acerca-de/acerca-de.component';
+import { TerminosComponent } from './modules/Cliente/terminos/terminos.component';
 
 
 
@@ -80,6 +81,7 @@ import { AcercaDeComponent } from './modules/Cliente/acerca-de/acerca-de.compone
     ContactanosComponent,
     PoliticasComponent,
     AcercaDeComponent,
+    TerminosComponent,
   ],
   imports: [
     BrowserModule,
