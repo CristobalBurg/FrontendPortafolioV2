@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row mt-4 ">
         <div class="col-md-4">
-            <div class="card text-white bg-success mb-3 w-100" >
+            <div class="card text-white bg-primary border border-success mb-3 w-100" >
                 <div class="card-header">Ingresos totales</div>
                 <div class="card-body">
                   <h5 class="card-title">{{ingresosTotales | currency:'CLP'}}</h5>
@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card text-white bg-danger mb-3 w-100" >
+            <div class="card text-white bg-primary border border-danger mb-3 w-100" >
                 <div class="card-header">Egresos totales</div>
                 <div class="card-body">
                   <h5 class="card-title">{{egresosTotales * -1 | currency:'CLP'}}</h5>
@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card text-white bg-warning mb-3 w-100" >
+            <div class="card text-white bg-primary border border-info mb-3 w-100" >
                 <div class="card-header">Cantidad de reservas totales</div>
                 <div class="card-body">
                   <h5 class="card-title">{{reservasTotales}}</h5>
@@ -34,18 +34,56 @@
         <h5>No hay registros de ventas</h5>
     </div>
 </div>
+<form [formGroup]="formFechas" (ngSubmit)="filtrarPorFecha()">
 
-<div class="container mt-3" *ngIf="reportes && reportes.length > 0">
-    <form>
+<div class="container mt-3">
         <div class="mb-3 row">
-            <div class="col-md-6 ">
+
+            <div class="col-md-3">
                 <input id="table-filtering-search" placeholder="Ingrese Direccion o comuna" class="form-control" type="text"  [formControl]="filter" />
             </div>
+            <div class="col-md-3">
+                <div class="input-group">
+                    <input
+                        class="form-control"
+                        placeholder="Fecha Inicio"
+                        name="fechaInicio"
+                        formControlName="fechaInicio"
+                        ngbDatepicker
+                        #i="ngbDatepicker"
+                        [(ngModel)]="fechaInicio"
+                    />
+                    <button class="btn btn-outline-secondary bi bi-calendar3" (click)="i.toggle()" type="button"></button>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group">
+                    <input
+                        class="form-control"
+                        placeholder="Fecha Fin"
+                        name="fechaFin"
+                        formControlName="fechaFin"
+                        ngbDatepicker
+                        #f="ngbDatepicker"
+                        [(ngModel)]="fechaFin"
+
+                    />
+                    <button class="btn btn-outline-secondary bi bi-calendar3" (click)="f.toggle()" type="button"></button>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary w-100"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-success w-100" (click)="exportXLS()"><i class="fas fa-file-excel"></i></button>
+            </div>
         </div>
-    </form>
-    <div class="table-responsive">
+    <div class="table-responsive"  *ngIf="reportes && reportes.length > 0">
         <table class="table table-striped text-center table-bordered table-responsive">
             <thead class="bg-primary text-light">
+                <tr>
+                    <th colspan="8" class="text-center">Ingresos por Departamento</th>
+                </tr>
                 <tr>
                     <th scope="col">Id</th>
                     <th>Dirección</th>
@@ -79,17 +117,22 @@
     </div>
 
 </div>
+</form>
+
 <div class="container mt-3" *ngIf="listadoPagos && listadoPagos.length > 0">
     <form>
         <div class="mb-3 row">
             <div class="col-md-6 ">
-                <input id="table-filtering-search" placeholder="Ingrese Direccion o comuna" class="form-control" type="text"  [formControl]="filter" />
+                <input id="table-filtering-search" placeholder="Ingrese fecha u observación" class="form-control" type="text"  [formControl]="filter" />
             </div>
         </div>
     </form>
     <div class="table-responsive">
         <table class="table table-striped text-center table-bordered table-responsive">
             <thead class="bg-primary text-light">
+                <tr>
+                    <th colspan="5" class="text-center">Egresos por Mantenciones</th>
+                </tr>
                 <tr>
                     <th scope="col">Id</th>
                     <th>Fecha</th>

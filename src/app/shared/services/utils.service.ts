@@ -20,6 +20,10 @@ export class UtilsService {
 	let ngbDate = new NgbDate( momentDate.year() , momentDate.month() , momentDate.date());
 	return ngbDate;
   }
+  getToday(){
+    let today = moment()
+    return new NgbDate( today.year() , today.month() , today.date());
+  }
 
   enumerateDaysBetweenDates (startDate, endDate ){
     let date: string[] = []

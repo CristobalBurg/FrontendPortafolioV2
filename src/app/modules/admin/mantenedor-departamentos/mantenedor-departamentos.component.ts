@@ -68,9 +68,11 @@ export class MantenedorDepartamentosComponent implements OnInit {
     nuevoDepartamento.valorArriendoDia = this.formDepartamentos.get('valorArriendoDia')?.value;
     nuevoDepartamento.politicasCondiciones = this.formDepartamentos.get('politicasCondiciones')?.value;
     nuevoDepartamento.tamano = this.formDepartamentos.get('tamano')?.value;
-    nuevoDepartamento.comuna = this.comunas.find( (comuna) => comuna.idComuna === this.formDepartamentos.get('comuna')?.value) as Comuna;
+    nuevoDepartamento.comuna = this.comunas.find( (comuna) => comuna.idComuna == this.formDepartamentos.get('comuna')?.value) as Comuna;
     nuevoDepartamento.inventarioProductos = [];
     nuevoDepartamento.departamentoMantenciones = [];
+
+    console.log(nuevoDepartamento)
 
     if (this.isEdit){
       nuevoDepartamento.idDepartamento = this.departamentoSeleccioando.idDepartamento;
