@@ -24,7 +24,8 @@
                     <th scope="col">Nombre</th>
                     <th  *ngIf="w > 425" scope="col">Apellido</th>
                     <th  *ngIf="w > 425" scope="col">Usuario</th>
-                    <th *ngIf="w > 425"  scope="col">Contraseña</th>
+                    <th *ngIf="w > 425"  scope="col">ROL</th>
+
                     <th *ngIf="w > 425"  scope="col">Telefono</th>
                     <th *ngIf="w > 425"  scope="col">Email</th>
                     <th scope="col">Operaciones</th>
@@ -36,17 +37,18 @@
                     <td><ngb-highlight [result]="item.nombre" [term]="filter.value"></ngb-highlight></td>
                     <td *ngIf="w > 425" ><ngb-highlight [result]="item.apellido " [term]="filter.value"></ngb-highlight></td>
                     <td *ngIf="w > 425" ><ngb-highlight [result]="item.username" [term]="filter.value"></ngb-highlight></td>
-                    <td *ngIf="w > 425" ><ngb-highlight [result]="item.password " [term]="filter.value"></ngb-highlight></td>
+                    <td *ngIf="w > 425 && item.isAdmin == 1" ><span class="badge rounded-pill bg-primary">ADMIN</span></td>
+                    <td *ngIf="w > 425 && item.isAdmin == 2" ><span class="badge rounded-pill bg-success">CLIENTE</span></td>
                     <td *ngIf="w > 425" ><ngb-highlight [result]="item.telefono " [term]="filter.value"></ngb-highlight></td>
                     <td *ngIf="w > 425" ><ngb-highlight [result]="item.email" [term]="filter.value"></ngb-highlight></td>
                     <td>
                         <div class="row">
-                            <div class="col">
+                            <div class="col-md-6">
                                 <button class="btn btn-warning w-100" (click)="editarUsuario(item , content)" >
                                     Editar
                                 </button>
                             </div>
-                            <div class="col">
+                            <div class="col-md-6">
                                 <button class="btn btn-danger w-100 "  [ngClass]="w < 425 ? 'my-1' : ''" (click)="eliminarUsuario(item.rutUsuario || '')">
                                     Eliminar
                                 </button>
@@ -72,7 +74,11 @@
 	<div class="modal-body">
             <div class="form-group">
                 <label for="exampleInputEmail1">Rut usuario</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="rut" formControlName="rutUsuario">
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="rut" formControlName="rutUsuario" [attr.disabled]="isEdit ? '' : null">
+                <span [hidden]="this.formUsuarios.invalid && this.formUsuarios.get('rutUsuario')?.untouched" >
+                    <small *ngIf="this.formUsuarios.get('rutUsuario')?.errors?.['required']"> <p class="text-danger"> <i> (El rut no puede quedar vacío)</i></p></small>
+                    <small *ngIf="this.formUsuarios.get('rutUsuario')?.errors?.['rutValido']"> <p class="text-danger"> <i> (rut inválido )</i></p></small>
+                  </span>
               </div>
               <div class="row">
                 <div class="col-md-6">
@@ -104,15 +110,31 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Telefono</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="telefono">
+                       <small>+569</small> <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="telefono">
                       </div>
+                      <span [hidden]="this.formUsuarios.invalid && this.formUsuarios.get('telefono')?.untouched">
+                        <small  *ngIf="this.formUsuarios.get('telefono')?.errors?.['required']"> <p class="text-danger"> <i> (El telefono no puede quedar vacío)</i></p> </small>
+                        <small  *ngIf="this.formUsuarios.get('telefono')?.errors?.['pattern']"> <p class="text-danger"> <i> (El telefono debe tener 8 números)</i></p> </small>
+                      </span>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="" formControlName="email">
                       </div>
+                      <span [hidden]="this.formUsuarios.invalid && this.formUsuarios.get('email')?.untouched" >
+                        <small *ngIf="this.formUsuarios.get('email')?.errors?.['required']" class ="mb-5"> <p class="text-danger"> <i> (El email no puede quedar vacío)</i></p></small>
+                        <small *ngIf="this.formUsuarios.get('email')?.errors?.['pattern']" class ="mb-5"> <p class="text-danger"> <i> (El email no cumple con el formato)</i></p></small>
+                      </span>
                 </div>
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Rol</label>
+                <select class="form-select" id="rol" formControlName="rol" *ngIf="roles.length > 0">
+                    <option [value]="item.authority" *ngFor="let item of roles" >
+                      {{item.authority}}
+                  </option>
+                  </select>
               </div>
               
             

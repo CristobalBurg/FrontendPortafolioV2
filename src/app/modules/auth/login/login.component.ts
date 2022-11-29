@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
         this.aS.loginUser(n.token);
         this.aS.getCurrentUser().subscribe( (user:any) =>{
           this.aS.setUser(user);
-          user.authorities[0].authority === 'ADMINISTRATIVO' ? this.router.navigate(["/","admin-home"]) : this.router.navigate(['/','paso1'])
+          user.isAdmin == 1 ? this.router.navigate(["/","admin-home"]) : this.router.navigate(['/','paso1'])
           });
       },
       error: (e) => Swal.fire("Ups...!", e.error.mensaje , "error")

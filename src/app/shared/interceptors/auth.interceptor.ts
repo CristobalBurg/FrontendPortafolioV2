@@ -27,7 +27,7 @@ export class AuthInterceptor implements HttpInterceptor {
                     Swal.fire("Tu sesión expiró", "Vuelve a iniciar sesión","info");
                     this.aS.logout();
                 }
-                if(err.status == 0 || err.status == 500){
+                if(err.status == 0 ){
                     this.router.navigate(["error"])
                 }
                 return throwError(err)

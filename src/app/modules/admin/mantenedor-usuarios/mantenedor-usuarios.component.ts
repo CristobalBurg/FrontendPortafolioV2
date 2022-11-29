@@ -1,8 +1,9 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { map, Observable, startWith } from 'rxjs';
 import { Usuario } from 'src/app/shared/interfaces/reserva.interface';
+import { CustomValidatorsService } from 'src/app/shared/services/custom-validators.service';
 import { UsuarioService } from 'src/app/shared/services/usuario.service';
 import Swal from 'sweetalert2';
 
@@ -15,6 +16,7 @@ export class MantenedorUsuariosComponent implements OnInit {
 
 
   usuarios: Usuario[];
+  roles:any[] = []
   usuarios$: Observable<Usuario[]>;
   formUsuarios: FormGroup;
   isEdit:boolean = false;
@@ -23,19 +25,26 @@ export class MantenedorUsuariosComponent implements OnInit {
   w: number = window.innerWidth
 
 
-  constructor(private dS:UsuarioService , private modalService: NgbModal , private fb: FormBuilder) {
+  constructor(
+    private dS:UsuarioService ,
+    private modalService: NgbModal ,
+    private fb: FormBuilder,
+    private cvS:CustomValidatorsService) {
+
     this.formUsuarios = this.fb.group({
-      rutUsuario: ['', [Validators.required]],
-      apellido: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      rutUsuario: [{value: '', disabled: this.isEdit} ,[Validators.required , cvS.rutValidator()]],
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      rol: [1, [Validators.required]],
       nombre: ['', [Validators.required]],
-      password:['', [Validators.required]],
-      telefono:['', [Validators.required]] , 
-      username: ['', [Validators.required]]
+      apellido: ['', [Validators.required]],
+      email: ['', [Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]], // mail@asd.com pattern
+      telefono: ['+569', [Validators.required ]],
     })
    }
 
   ngOnInit(): void {
+    this.roles.push({authority:'CLIENTE'},{authority:'ADMINISTRATIVO'})
     this.getUsuarios();
   }
 
@@ -45,6 +54,7 @@ export class MantenedorUsuariosComponent implements OnInit {
 	}
 
   agregarUsuario(){
+    this.getFormValidationErrors()
 
     if(this.formUsuarios.invalid){
       Swal.fire("Ups..!","El formulario es inválido","error");
@@ -59,7 +69,7 @@ export class MantenedorUsuariosComponent implements OnInit {
     nuevoUsuario.password = this.formUsuarios.get('password')?.value;
     nuevoUsuario.telefono = this.formUsuarios.get('telefono')?.value;
     nuevoUsuario.username = this.formUsuarios.get('username')?.value;;
-    nuevoUsuario.isAdmin = 2;
+    nuevoUsuario.isAdmin =  this.formUsuarios.get('rol')?.value == "ADMINISTRATIVO" ? 1 : 2
     nuevoUsuario.enabled = true;
 
     if (this.isEdit){
@@ -68,6 +78,7 @@ export class MantenedorUsuariosComponent implements OnInit {
         next: (res) =>{
           this.getUsuarios();
           this.isEdit = false;
+          Swal.fire("Todo bien!","Usuario editado correctamente", "success")
           return;
         },
         error: (err) => {
@@ -79,6 +90,7 @@ export class MantenedorUsuariosComponent implements OnInit {
       this.dS.guardarUsuario(nuevoUsuario).subscribe({
         next: (res) =>{
           this.getUsuarios();
+          Swal.fire("Todo bien!","Usuario creado correctamente", "success")
         },
         error: (err) => console.log(err)
       })
@@ -106,9 +118,11 @@ export class MantenedorUsuariosComponent implements OnInit {
     this.formUsuarios.get('apellido')?.setValue( usuario.apellido);
     this.formUsuarios.get('email')?.setValue( usuario.email);
     this.formUsuarios.get('nombre')?.setValue( usuario.nombre);
-    this.formUsuarios.get('password')?.setValue( usuario.password);
-    this.formUsuarios.get('telefono')?.setValue( usuario.telefono);
+    this.formUsuarios.get('password')?.setValue('');
+    this.formUsuarios.get('telefono')?.setValue('');
     this.formUsuarios.get('username')?.setValue( usuario.username);
+    this.formUsuarios.get('rol')?.setValue( usuario.isAdmin == 1 ? 'ADMINISTRATIVO' : 'CLIENTE');
+
   }
 
   search(text: string): Usuario[] {
@@ -149,6 +163,18 @@ export class MantenedorUsuariosComponent implements OnInit {
 	onResize() {
 		this.w = window.innerWidth;
 	}
+
+
+  getFormValidationErrors() {
+    Object.keys(this.formUsuarios.controls).forEach(key => {
+      const controlErrors: ValidationErrors = this.formUsuarios.get(key)?.errors as ValidationErrors;
+      if (controlErrors != null) {
+        Object.keys(controlErrors).forEach(keyError => {
+         console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
+        });
+      }
+    });
+  }
 
 
 

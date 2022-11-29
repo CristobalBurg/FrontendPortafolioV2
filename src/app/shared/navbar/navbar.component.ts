@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit  {
     .subscribe((user?: any) => {
       this.authedUser = user;
       if(this.authedUser){
-        this.isAdmin = this.authedUser?.authorities[0].authority === 'ADMINISTRATIVO' ? true : false  || false
+        this.isAdmin = this.authedUser?.isAdmin == 1 ? true : false 
       } else {
         this.isAdmin = false;
       }
@@ -34,7 +34,7 @@ export class NavbarComponent implements OnInit  {
     if (!this.authedUser){
       this.isAdmin = false;
     } else {
-      this.isAdmin = this.authedUser.authorities[0].authority === 'ADMINISTRATIVO' ? true : false  || false
+      this.isAdmin = this.authedUser?.isAdmin == 1 ? true : false 
 
     }
   }

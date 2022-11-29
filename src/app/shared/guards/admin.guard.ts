@@ -12,9 +12,8 @@ export class AdminGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    let userRole = this.aS.getUserRole();
-    console.log(userRole)
-    if( userRole == "ADMINISTRATIVO"){
+    let user = this.aS.getUser();
+    if( user.isAdmin == 1){
 
       return true
     } else {

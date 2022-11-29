@@ -125,7 +125,7 @@ export class AdminReportesComponent implements OnInit {
     let momentParsedInicio  = moment(parsedInicio).format('DD-MM-yyyy')
     let momentParsedFin  = moment(parsedFin).format('DD-MM-yyyy');
     console.log( moment(parsedInicio))
-    if( moment(parsedInicio).isBefore(moment(parsedFin))){
+    if( moment(parsedInicio).isAfter(moment(parsedFin))){
       Swal.fire("Error","La fecha de inicio no puede ser posterior a la fecha de termino","error");
       return;
     }

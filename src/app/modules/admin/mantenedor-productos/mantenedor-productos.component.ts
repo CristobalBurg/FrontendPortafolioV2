@@ -113,9 +113,16 @@ export class MantenedorProductosComponent implements OnInit {
       confirmButtonText: 'Confirmar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.pS.borrarProducto(id).subscribe( (res) => {
-          Swal.fire("Producto Eliminado","El Producto fue eliminado correctamente","info");
-          this.getProductos();
+        this.pS.borrarProducto(id).subscribe({
+          next:(res) => {
+            Swal.fire("Producto Eliminado","El Producto fue eliminado correctamente","info");
+            this.getProductos();
+          },
+          error:(err) => {
+            Swal.fire("Error","No puedes eliminar productos que actualmente estén en el inventario de algún de partamento","error");
+            this.getProductos();
+
+          }
         })
       }
     })
