@@ -27,7 +27,7 @@
             <a class="nav-link" *ngIf="!isAdmin" aria-current="page"routerLink="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" *ngIf="!isAdmin" href="#">Sobre Nosotros</a>
+            <a class="nav-link" *ngIf="!isAdmin" routerLink="/acerca-de">Sobre Nosotros</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" *ngIf="authedUser" routerLink="/paso1">Reserva</a>

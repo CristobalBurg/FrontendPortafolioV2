@@ -41,6 +41,7 @@ import { TestimoniosComponent } from './modules/Cliente/testimonios/testimonios.
 import { NotFoundLandingComponent } from './shared/not-found-landing/not-found-landing.component';
 import { ContactanosComponent } from './modules/Cliente/contactanos/contactanos.component';
 import { PoliticasComponent } from './modules/Cliente/politicas/politicas.component';
+import { AcercaDeComponent } from './modules/Cliente/acerca-de/acerca-de.component';
 
 
 
@@ -77,7 +78,8 @@ import { PoliticasComponent } from './modules/Cliente/politicas/politicas.compon
     TestimoniosComponent,
     NotFoundLandingComponent,
     ContactanosComponent,
-    PoliticasComponent
+    PoliticasComponent,
+    AcercaDeComponent,
   ],
   imports: [
     BrowserModule,
