@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
       apellido: ['', [Validators.required]],
       email: ['', [Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]], // mail@asd.com pattern
       telefono: ['', [Validators.required ,Validators.maxLength(8),Validators.pattern('[- +()0-9]{8,8}')]],
-      isAdmin: [1, [Validators.required]]
+      isAdmin: [2, [Validators.required]]
     } , { validator: this.checkPasswords })
    }
 

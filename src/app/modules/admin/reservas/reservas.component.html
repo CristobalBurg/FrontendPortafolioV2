@@ -27,6 +27,8 @@
                     <th scope="col">Fecha Fin</th>
                     <th scope="col">CheckIn</th>
                     <th scope="col">CheckOut</th>
+                    <th scope="col">Cancelar</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -49,6 +51,10 @@
                     <td>
                         <button *ngIf="item.checkedOut" (click)="imprimirCheckout(item.idReserva || 0)" class="btn btn-success">Imprimir</button>
                         <button *ngIf="!item.checkedOut" (click)="open(content , item.idReserva || 0)" class="btn btn-danger">Pendiente</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger"><i class="fas fa-times"></i></button>
+
                     </td>
                 </tr>
             </tbody>
