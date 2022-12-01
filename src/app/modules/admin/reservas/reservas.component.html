@@ -53,7 +53,7 @@
                         <button *ngIf="!item.checkedOut" (click)="open(content , item.idReserva || 0)" class="btn btn-danger">Pendiente</button>
                     </td>
                     <td>
-                        <button class="btn btn-danger"><i class="fas fa-times"></i></button>
+                        <button class="btn btn-danger" (click)="cancelarReserva(item.idReserva || 0)"><i class="fas fa-times"></i></button>
 
                     </td>
                 </tr>

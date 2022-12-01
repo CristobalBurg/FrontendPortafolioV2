@@ -183,4 +183,26 @@ export class ReservasComponent implements OnInit {
   }
 
 
+  cancelarReserva(id){
+
+    Swal.fire({
+      title: 'Seguro que deseas Cancelar esta reserva?',
+      text: "Esta acción es IRREVERSIBLE , ¿ estás seguro/a ?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.rS.cancelarReserva(id).subscribe( (res) => {
+          Swal.fire("Reserva Cancelada","La reserva fue cancelada correctamente","info");
+          this.getReservas();
+        })
+      }
+    })
+
+  }
+
+
 }

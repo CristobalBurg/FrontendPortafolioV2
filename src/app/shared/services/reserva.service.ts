@@ -89,6 +89,11 @@ export class ReservaService {
     return this.httpClient.get<Reserva[]>(this.url + segment)
   }
 
+  cancelarReserva(id) {
+    let segment = '/' + id;
+    return this.httpClient.delete(this.url + segment)
+  }
+
   crearCheckin( checkIn: CheckIn): Observable<CheckIn[]>{
     return this.httpClient.post<CheckIn[]>(this.urlCheckin , checkIn )
   }
